@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="40" height="72" viewBox="0 0 40 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Live Index / Toggle">
+<path d="M0 12C0 5.37258 5.37258 0 12 0H40V72H12C5.37258 72 0 66.6274 0 60V12Z" fill="#FAF9F3"/>
+<g id="Icon / Collapse Right">
+<path id="Vector" d="M17.25 19.5L22.75 25L17.25 30.5" stroke="#141414" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<circle id="Status / Live" cx="20" cy="53" r="3" fill="#FF2414"/>
+</g>
+</svg>
