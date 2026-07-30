@@ -1589,6 +1589,33 @@ a { color: inherit; text-decoration: none; }
 }
 
 .vod-card--hidden { display: none; }
+.vod-card--paged-hidden { display: none; }
+
+.vod-load-more {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.vod-load-more[hidden] { display: none; }
+
+.vod-load-more__btn {
+  height: 44px;
+  padding: 0 28px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.vod-load-more__btn:hover {
+  border-color: var(--color-text-secondary);
+}
 
 .vod-card__thumb-wrap {
   position: relative;

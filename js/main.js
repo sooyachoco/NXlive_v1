@@ -257,7 +257,94 @@
         });
 
         console.log('[A2S] vod_filter_click', { filter });
+        document.dispatchEvent(new CustomEvent('vod-filter-changed'));
       });
+    });
+  }
+
+  /* ===== VOD Pagination (더보기) ===== */
+  function isVodCardFilteredOut(card) {
+    return card.classList.contains('vod-card--hidden') || card.hidden === true;
+  }
+
+  function getGridColumnCount(grid) {
+    const template = window.getComputedStyle(grid).gridTemplateColumns;
+    if (!template || template === 'none') return 1;
+    const repeatMatch = template.match(/repeat\((\d+)/);
+    if (repeatMatch) return parseInt(repeatMatch[1], 10);
+    return Math.max(1, template.split(' ').filter(Boolean).length);
+  }
+
+  function initVodPagination() {
+    const controllers = [];
+
+    document.querySelectorAll('.vod-grid[data-paginate]').forEach((grid) => {
+      const rowCount = parseInt(grid.dataset.pageRows, 10) || 2;
+      const wrap = grid.nextElementSibling;
+      const btn = wrap?.hasAttribute('data-load-more-wrap') ? wrap.querySelector('[data-load-more]') : null;
+      let visibleCount = 0;
+
+      function getInitialCount() {
+        return getGridColumnCount(grid) * rowCount;
+      }
+
+      function apply() {
+        const cards = Array.from(grid.querySelectorAll('.vod-card'));
+        let shown = 0;
+
+        cards.forEach((card) => {
+          if (isVodCardFilteredOut(card)) {
+            card.classList.add('vod-card--paged-hidden');
+            return;
+          }
+          if (shown < visibleCount) {
+            card.classList.remove('vod-card--paged-hidden');
+            shown += 1;
+          } else {
+            card.classList.add('vod-card--paged-hidden');
+          }
+        });
+
+        const eligibleCount = cards.filter((card) => !isVodCardFilteredOut(card)).length;
+        if (wrap) wrap.hidden = eligibleCount <= visibleCount;
+      }
+
+      function loadMore() {
+        const cards = Array.from(grid.querySelectorAll('.vod-card'));
+        const eligibleCount = cards.filter((card) => !isVodCardFilteredOut(card)).length;
+        visibleCount = eligibleCount;
+        apply();
+      }
+
+      function reset() {
+        visibleCount = getInitialCount();
+        apply();
+      }
+
+      btn?.addEventListener('click', loadMore);
+
+      visibleCount = getInitialCount();
+      apply();
+      controllers.push({ reset, grid });
+
+      window.addEventListener('resize', () => {
+        const cards = Array.from(grid.querySelectorAll('.vod-card'));
+        const eligibleCount = cards.filter((card) => !isVodCardFilteredOut(card)).length;
+        const initial = getInitialCount();
+        if (visibleCount <= initial) {
+          visibleCount = initial;
+          apply();
+        } else if (visibleCount > eligibleCount) {
+          visibleCount = eligibleCount;
+          apply();
+        }
+      });
+    });
+
+    if (!controllers.length) return;
+
+    document.addEventListener('vod-filter-changed', () => {
+      controllers.forEach((controller) => controller.reset());
     });
   }
 
@@ -549,6 +636,12 @@
         panels.forEach((panel) => {
           panel.hidden = panel.dataset.tabPanel !== target;
         });
+
+        if (target === 'watch') {
+          requestAnimationFrame(() => {
+            document.dispatchEvent(new CustomEvent('vod-filter-changed'));
+          });
+        }
       });
     });
   }
@@ -672,27 +765,37 @@
           }
 
           closeMenu();
+          document.dispatchEvent(new CustomEvent('vod-filter-changed'));
         });
       });
     });
   }
 
   /* ===== Init ===== */
+  function safeInit(name, fn) {
+    try {
+      fn();
+    } catch (err) {
+      console.error(`[NXlive] ${name} init failed:`, err);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
-    initSidebar();
-    initTooltips();
-    initVodFilters();
-    initCountdowns();
-    initCardClicks();
-    initHeroHover();
-    initHeroRolls();
-    initLiveIndex();
-    initThumbPreviews();
-    initChannelNotify();
-    initMypageTabs();
-    initMypageFilter();
-    initMypageNotice();
+    safeInit('initTheme', initTheme);
+    safeInit('initSidebar', initSidebar);
+    safeInit('initTooltips', initTooltips);
+    safeInit('initVodFilters', initVodFilters);
+    safeInit('initCountdowns', initCountdowns);
+    safeInit('initCardClicks', initCardClicks);
+    safeInit('initHeroHover', initHeroHover);
+    safeInit('initHeroRolls', initHeroRolls);
+    safeInit('initLiveIndex', initLiveIndex);
+    safeInit('initThumbPreviews', initThumbPreviews);
+    safeInit('initChannelNotify', initChannelNotify);
+    safeInit('initMypageTabs', initMypageTabs);
+    safeInit('initMypageFilter', initMypageFilter);
+    safeInit('initMypageNotice', initMypageNotice);
+    safeInit('initVodPagination', initVodPagination);
 
     document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
   });
