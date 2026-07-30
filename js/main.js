@@ -651,12 +651,66 @@
   }
 
   /* ===== My Page Prize Detail ===== */
+  function copyTextToClipboard(text) {
+    const value = text.trim();
+    if (!value) return Promise.resolve(false);
+
+    if (navigator.clipboard?.writeText) {
+      return navigator.clipboard.writeText(value)
+        .then(() => true)
+        .catch(() => copyTextToClipboardFallback(value));
+    }
+
+    return Promise.resolve(copyTextToClipboardFallback(value));
+  }
+
+  function copyTextToClipboardFallback(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, text.length);
+
+    let copied = false;
+    try {
+      copied = document.execCommand('copy');
+    } catch {
+      copied = false;
+    }
+
+    document.body.removeChild(textarea);
+    return copied;
+  }
+
   function initMypagePrizeDetail() {
     const listView = document.getElementById('winnerListView');
     const detail = document.getElementById('prizeDetail');
     const backBtn = document.getElementById('prizeDetailBack');
     const copyBtn = document.getElementById('prizeDetailCopy');
+    const copyMsg = document.getElementById('prizeDetailCopyMsg');
     if (!listView || !detail) return;
+
+    let copyMsgTimer = null;
+
+    function hideCopyMsg() {
+      if (copyMsgTimer) {
+        clearTimeout(copyMsgTimer);
+        copyMsgTimer = null;
+      }
+      if (copyMsg) copyMsg.hidden = true;
+    }
+
+    function showCopyMsg() {
+      if (!copyMsg) return;
+      hideCopyMsg();
+      copyMsg.hidden = false;
+      copyMsgTimer = setTimeout(hideCopyMsg, 2000);
+    }
 
     const fields = {
       icon: document.getElementById('prizeDetailIcon'),
@@ -670,11 +724,13 @@
     };
 
     function closeDetail() {
+      hideCopyMsg();
       detail.hidden = true;
       listView.hidden = false;
     }
 
     function openDetail(btn) {
+      hideCopyMsg();
       const dataset = btn.dataset;
       if (fields.icon) {
         fields.icon.textContent = dataset.prizeIcon || '';
@@ -705,24 +761,19 @@
     document.addEventListener('prize-detail-close', closeDetail);
 
     copyBtn?.addEventListener('click', async () => {
-      const code = fields.coupon?.textContent;
+      const code = fields.coupon?.textContent?.trim();
       if (!code) return;
 
-      try {
-        await navigator.clipboard.writeText(code);
-        copyBtn.classList.add('prize-detail__copy--copied');
-        copyBtn.setAttribute('aria-label', '복사됨');
-        setTimeout(() => {
-          copyBtn.classList.remove('prize-detail__copy--copied');
-          copyBtn.setAttribute('aria-label', '쿠폰 코드 복사');
-        }, 2000);
-      } catch {
-        const range = document.createRange();
-        range.selectNodeContents(fields.coupon);
-        const selection = window.getSelection();
-        selection?.removeAllRanges();
-        selection?.addRange(range);
-      }
+      const copied = await copyTextToClipboard(code);
+      if (!copied) return;
+
+      copyBtn.classList.add('prize-detail__copy--copied');
+      copyBtn.setAttribute('aria-label', '복사됨');
+      showCopyMsg();
+      setTimeout(() => {
+        copyBtn.classList.remove('prize-detail__copy--copied');
+        copyBtn.setAttribute('aria-label', '쿠폰 코드 복사');
+      }, 2000);
     });
   }
 

@@ -2791,7 +2791,44 @@ a { color: inherit; text-decoration: none; }
   color: var(--color-event-text);
 }
 
+.prize-detail__meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.prize-detail__copy-msg {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-event-text);
+  text-align: right;
+  white-space: nowrap;
+  animation: prize-copy-msg-in 0.2s ease;
+}
+
+.prize-detail__copy-msg[hidden] {
+  display: none;
+}
+
+@keyframes prize-copy-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .prize-detail__expiry {
+  flex: 1;
+  min-width: 0;
   font-size: 12px;
   color: var(--color-text-subtle);
 }
@@ -3182,43 +3219,50 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ===== Dark Mode — LNB (hover / active 통일) ===== */
-[data-theme="dark"] .sidebar__nav-item,
-[data-theme="dark"] .sidebar__nav-item:link,
-[data-theme="dark"] .sidebar__nav-item:visited {
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):not(:hover),
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):not(:hover):link,
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):not(:hover):visited {
   color: var(--color-lnb-text);
 }
 
-[data-theme="dark"] .sidebar__nav-item .icon--nav {
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):not(:hover) .icon--nav {
   color: var(--color-lnb-text);
 }
 
 [data-theme="dark"] .sidebar__nav-item--active,
 [data-theme="dark"] .sidebar__nav-item--active:link,
 [data-theme="dark"] .sidebar__nav-item--active:visited,
+[data-theme="dark"] .sidebar__nav-item--active:hover,
+[data-theme="dark"] .sidebar__nav-item--active:focus-visible,
 [data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover,
 [data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover:link,
 [data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover:visited {
-  background: var(--color-lnb-active-bg);
-  color: var(--color-lnb-active-text);
+  background-color: var(--color-lnb-active-bg) !important;
+  color: var(--color-lnb-active-text) !important;
 }
 
 [data-theme="dark"] .sidebar__nav-item--active .icon--nav,
-[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover .icon--nav {
-  color: var(--color-lnb-active-text);
+[data-theme="dark"] .sidebar__nav-item--active:hover .icon--nav,
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover .icon--nav,
+[data-theme="dark"] .sidebar__nav-item--active svg,
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover svg {
+  color: var(--color-lnb-active-text) !important;
 }
 
-[data-theme="dark"] .sidebar__game-item,
-[data-theme="dark"] .sidebar__game-item:link,
-[data-theme="dark"] .sidebar__game-item:visited {
+[data-theme="dark"] .sidebar__game-item:not(.sidebar__game-item--active):not(:hover),
+[data-theme="dark"] .sidebar__game-item:not(.sidebar__game-item--active):not(:hover):link,
+[data-theme="dark"] .sidebar__game-item:not(.sidebar__game-item--active):not(:hover):visited {
   color: var(--color-lnb-text);
 }
 
 [data-theme="dark"] .sidebar__game-item--active,
 [data-theme="dark"] .sidebar__game-item--active:link,
 [data-theme="dark"] .sidebar__game-item--active:visited,
-[data-theme="dark"] .sidebar__game-item:hover,
-[data-theme="dark"] .sidebar__game-item:hover:link,
-[data-theme="dark"] .sidebar__game-item:hover:visited {
-  background: var(--color-lnb-active-bg);
-  color: var(--color-lnb-active-text);
+[data-theme="dark"] .sidebar__game-item--active:hover,
+[data-theme="dark"] .sidebar__game-item--active:focus-visible,
+[data-theme="dark"] .sidebar__game-item:not(.sidebar__game-item--active):hover,
+[data-theme="dark"] .sidebar__game-item:not(.sidebar__game-item--active):hover:link,
+[data-theme="dark"] .sidebar__game-item:not(.sidebar__game-item--active):hover:visited {
+  background-color: var(--color-lnb-active-bg) !important;
+  color: var(--color-lnb-active-text) !important;
 }

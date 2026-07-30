@@ -7,7 +7,7 @@
   <title>이벤트 참여 내역 - NEXON LIVE</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=26">
+  <link rel="stylesheet" href="css/style.css?v=29">
 </head>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
@@ -348,7 +348,10 @@
                           <svg class="icon icon--copy" aria-hidden="true"><use href="#icon-copy"/></svg>
                         </button>
                       </div>
-                      <p class="prize-detail__expiry" id="prizeDetailExpiry">쿠폰 유효기간 2026-08-24 10:00 까지</p>
+                      <div class="prize-detail__meta-row">
+                        <p class="prize-detail__expiry" id="prizeDetailExpiry">쿠폰 유효기간 2026-08-24 10:00 까지</p>
+                        <p class="prize-detail__copy-msg" id="prizeDetailCopyMsg" hidden role="status" aria-live="polite">쿠폰번호가 복사되었습니다.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -695,6 +698,6 @@
     </div>
   </div>
 
-  <script src="js/main.js?v=22"></script>
+  <script src="js/main.js?v=24"></script>
 </body>
 </html>
