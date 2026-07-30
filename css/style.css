@@ -195,7 +195,7 @@ a { color: inherit; text-decoration: none; }
 .icon--logo-text { width: 131px; height: 12px; color: var(--color-text-primary); }
 .icon--user { width: 20px; height: 20px; color: var(--color-text-primary); }
 .icon--nav { width: 20px; height: 20px; }
-.sidebar__nav-item--active .icon--nav { color: var(--color-nav-active-text); }
+.sidebar__nav-item--active .icon--nav { color: var(--color-nav-text); }
 .sidebar__nav-item:not(.sidebar__nav-item--active) .icon--nav { color: var(--color-nav-text); }
 .icon--info { width: 16px; height: 16px; color: var(--color-icon-muted); }
 .icon--play { width: 28px; height: 32px; color: #000; }
@@ -298,17 +298,17 @@ a { color: inherit; text-decoration: none; }
 
 .sidebar__nav-item--active {
   background: var(--color-nav-active-bg);
-  color: var(--color-nav-active-text);
+  color: var(--color-nav-text);
   font-weight: 600;
 }
 
 .sidebar__nav-item:not(.sidebar__nav-item--active):hover {
   background: var(--color-nav-active-bg);
-  color: var(--color-nav-active-text);
+  color: var(--color-nav-text);
 }
 
 .sidebar__nav-item:not(.sidebar__nav-item--active):hover .icon--nav {
-  color: var(--color-nav-active-text);
+  color: var(--color-nav-text);
 }
 
 .sidebar__divider {
@@ -358,12 +358,12 @@ a { color: inherit; text-decoration: none; }
 
 .sidebar__game-item:hover {
   background: var(--color-nav-active-bg);
-  color: var(--color-nav-active-text);
+  color: var(--color-nav-text);
 }
 
 .sidebar__game-item--active {
   background: var(--color-nav-active-bg);
-  color: var(--color-nav-active-text);
+  color: var(--color-nav-text);
   font-weight: 600;
 }
 
