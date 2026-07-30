@@ -91,6 +91,9 @@
   --color-divider: #2a2f38;
   --color-nav-active-bg: rgba(13, 82, 229, 0.15);
   --color-nav-text: #c8ccd4;
+  --color-lnb-text: #9aa0ab;
+  --color-lnb-active-bg: #1e3560;
+  --color-lnb-active-text: #ffffff;
   --color-filter-default-bg: #1a1d23;
   --color-filter-default-border: #2a2f38;
   --color-filter-default-text: #c8ccd4;
@@ -3176,4 +3179,46 @@ a { color: inherit; text-decoration: none; }
 
 [data-theme="dark"] .prize-detail__guide-list li::before {
   color: var(--color-text-secondary);
+}
+
+/* ===== Dark Mode — LNB (hover / active 통일) ===== */
+[data-theme="dark"] .sidebar__nav-item,
+[data-theme="dark"] .sidebar__nav-item:link,
+[data-theme="dark"] .sidebar__nav-item:visited {
+  color: var(--color-lnb-text);
+}
+
+[data-theme="dark"] .sidebar__nav-item .icon--nav {
+  color: var(--color-lnb-text);
+}
+
+[data-theme="dark"] .sidebar__nav-item--active,
+[data-theme="dark"] .sidebar__nav-item--active:link,
+[data-theme="dark"] .sidebar__nav-item--active:visited,
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover,
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover:link,
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover:visited {
+  background: var(--color-lnb-active-bg);
+  color: var(--color-lnb-active-text);
+}
+
+[data-theme="dark"] .sidebar__nav-item--active .icon--nav,
+[data-theme="dark"] .sidebar__nav-item:not(.sidebar__nav-item--active):hover .icon--nav {
+  color: var(--color-lnb-active-text);
+}
+
+[data-theme="dark"] .sidebar__game-item,
+[data-theme="dark"] .sidebar__game-item:link,
+[data-theme="dark"] .sidebar__game-item:visited {
+  color: var(--color-lnb-text);
+}
+
+[data-theme="dark"] .sidebar__game-item--active,
+[data-theme="dark"] .sidebar__game-item--active:link,
+[data-theme="dark"] .sidebar__game-item--active:visited,
+[data-theme="dark"] .sidebar__game-item:hover,
+[data-theme="dark"] .sidebar__game-item:hover:link,
+[data-theme="dark"] .sidebar__game-item:hover:visited {
+  background: var(--color-lnb-active-bg);
+  color: var(--color-lnb-active-text);
 }
