@@ -7,7 +7,7 @@
   <title>NEXON LIVE</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
   <!-- SVG Icon Sprite (UI icons only — thumbnails use <img>) -->
@@ -53,11 +53,6 @@
     </symbol>
     <symbol id="icon-play" viewBox="0 0 28 32">
       <path d="M25.2 12.9C27.5 14.25 27.5 17.75 25.2 19.1L6.1 30.3C3.75 31.68 0.8 29.98 0.8 27.25V4.75C0.8 2.02 3.75 0.32 6.1 1.7L25.2 12.9Z" fill="currentColor" fill-opacity="0.7"/>
-    </symbol>
-    <symbol id="icon-live-index-toggle" viewBox="0 0 40 72">
-      <path d="M0 12C0 5.37258 5.37258 0 12 0H40V72H12C5.37258 72 0 66.6274 0 60V12Z" fill="currentColor"/>
-      <path d="M17.25 19.5L22.75 25L17.25 30.5" fill="none" stroke="#141414" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="20" cy="53" r="3" fill="#FF2414"/>
     </symbol>
     <symbol id="icon-drops" viewBox="0 0 11 11">
       <path d="M2 4.2H9V9.8H2V4.2Z" fill="#1F2937"/>
@@ -190,11 +185,11 @@
             </div>
           </div>
           <div class="hero__content">
+            <div class="hero__game">
+              <span class="hero__game-icon" aria-hidden="true">M</span>
+              <span class="hero__game-name">메이플스토리</span>
+            </div>
             <div class="hero__overlay">
-              <div class="hero__game">
-                <span class="hero__game-icon" aria-hidden="true">M</span>
-                <span class="hero__game-name">메이플스토리</span>
-              </div>
               <h1 class="hero__title">메이플스토리 여름 쇼케이스</h1>
               <button type="button" class="hero__tag">실시간 투표</button>
             </div>
@@ -207,95 +202,64 @@
           </div>
             </article>
 
-            <article class="hero-roll__slide">
-          <img class="hero__bg" src="assets/live-thumbnail-1.jpg" alt="바람의나라 25주년 디렉터 라이브">
-          <video class="hero__video" muted loop playsinline preload="metadata" poster="assets/live-thumbnail-1.jpg">
-            <source src="assets/hero-preview.mp4" type="video/mp4">
-          </video>
-          <div class="hero__gradient"></div>
-          <div class="hero__live-top">
-            <div class="badge-live badge-live--hero" aria-label="LIVE, 8,420명 시청">
-              <svg class="badge-live__separator" viewBox="0 0 8 18" fill="none" aria-hidden="true">
-                <path opacity="0.4" d="M0 0H8V18H0V0Z" fill="#000"/>
-              </svg>
-              <div class="badge-live__viewers">
-                <svg class="badge-live__eye" viewBox="0 0 12 18" fill="none" aria-hidden="true">
-                  <path d="M11.2273 3.9975C10.7863 2.85662 10.0206 1.86998 9.02489 1.15953C8.02919 0.449083 6.84715 0.0459648 5.62484 0C4.40253 0.0459648 3.22049 0.449083 2.22479 1.15953C1.2291 1.86998 0.463401 2.85662 0.0223405 3.9975C-0.00744682 4.07989 -0.00744682 4.17011 0.0223405 4.2525C0.463401 5.39338 1.2291 6.38002 2.22479 7.09047C3.22049 7.80092 4.40253 8.20404 5.62484 8.25C6.84715 8.20404 8.02919 7.80092 9.02489 7.09047C10.0206 6.38002 10.7863 5.39338 11.2273 4.2525C11.2571 4.17011 11.2571 4.07989 11.2273 3.9975ZM5.62484 6.5625C5.14275 6.5625 4.67148 6.41954 4.27064 6.15171C3.86979 5.88387 3.55737 5.50319 3.37288 5.05779C3.1884 4.6124 3.14012 4.1223 3.23418 3.64947C3.32823 3.17664 3.56038 2.74232 3.90127 2.40143C4.24216 2.06054 4.67648 1.82839 5.14931 1.73434C5.62214 1.64028 6.11224 1.68856 6.55763 1.87304C7.00303 2.05753 7.38371 2.36995 7.65155 2.7708C7.91938 3.17164 8.06234 3.64291 8.06234 4.125C8.06135 4.77116 7.80422 5.39057 7.34732 5.84748C6.89041 6.30438 6.271 6.56151 5.62484 6.5625Z" fill="#fff" transform="translate(0.375 4.875)"/>
-                  <path d="M1.5 3C2.32843 3 3 2.32843 3 1.5C3 0.671573 2.32843 0 1.5 0C0.671573 0 0 0.671573 0 1.5C0 2.32843 0.671573 3 1.5 3Z" fill="#fff" transform="translate(4.5 7.5)"/>
-                </svg>
-                <span class="badge-live__count">8,420</span>
-              </div>
-              <div class="badge-live__live">
-                <div class="badge-live__shape-wrap" aria-hidden="true">
-                  <svg class="badge-live__shape" viewBox="0 0 47 25" fill="none">
-                    <path d="M1 0H38L46 4.81395V23L38 18.186H1V0Z" fill="#FF321F"/>
-                  </svg>
-                </div>
-                <span class="badge-live__text">LIVE</span>
-              </div>
-            </div>
+            <article class="hero-roll__slide hero-roll__slide--scheduled">
+          <img class="hero-scheduled__bg" src="assets/thumbnail-fc-online.jpg" alt="FC 온라인 시즌 업데이트 라이브 예정">
+          <div class="hero-scheduled__gradient" aria-hidden="true"></div>
+          <span class="live-card__countdown hero-scheduled__status">예정</span>
+          <div class="hero-scheduled__clock" aria-hidden="true">
+            <svg class="icon icon--clock-hero"><use href="#icon-clock-hero"/></svg>
           </div>
           <div class="hero__content">
-            <div class="hero__overlay">
-              <div class="hero__game">
-                <span class="hero__game-icon" style="background:#5c6bc0" aria-hidden="true">바</span>
-                <span class="hero__game-name">바람의나라</span>
-              </div>
-              <h1 class="hero__title">25주년 디렉터 라이브</h1>
-              <button type="button" class="hero__tag">드롭스</button>
+            <div class="hero__game">
+              <span class="hero__game-icon" style="background:#14a34d" aria-hidden="true">F</span>
+              <span class="hero__game-name">FC 온라인</span>
             </div>
-          </div>
-          <button type="button" class="hero__play-btn" aria-label="지금 시청">
-            <svg class="icon icon--play" aria-hidden="true"><use href="#icon-play"/></svg>
-          </button>
-          <div class="hero__progress" aria-hidden="true">
-            <div class="hero__progress-bar"></div>
+            <div class="hero__overlay hero-scheduled__overlay">
+              <h1 class="hero__title hero-scheduled__title">시즌 업데이트 라이브</h1>
+              <p class="hero-scheduled__schedule">
+                <svg class="icon icon--clock-sm" aria-hidden="true"><use href="#icon-clock"/></svg>
+                <span>오늘 <span>19:00</span> 시작 · <span data-countdown="2026-07-29T19:00:00">00:00:00 남음</span></span>
+              </p>
+              <div class="hero-scheduled__tags">
+                <span class="hero-scheduled__tag">드롭스</span>
+                <span class="hero-scheduled__tag">실시간 투표</span>
+              </div>
+              <button type="button" class="hero-scheduled__notify-btn">
+                <svg class="icon icon--bell" aria-hidden="true"><use href="#icon-bell"/></svg>
+                <span>알림 신청</span>
+              </button>
+            </div>
           </div>
             </article>
 
-            <article class="hero-roll__slide">
-          <img class="hero__bg" src="assets/live-thumbnail-2.jpg" alt="던전앤파이터 개발자 노트">
-          <video class="hero__video" muted loop playsinline preload="metadata" poster="assets/live-thumbnail-2.jpg">
-            <source src="assets/hero-preview.mp4" type="video/mp4">
-          </video>
-          <div class="hero__gradient"></div>
-          <div class="hero__live-top">
-            <div class="badge-live badge-live--hero" aria-label="LIVE, 5,102명 시청">
-              <svg class="badge-live__separator" viewBox="0 0 8 18" fill="none" aria-hidden="true">
-                <path opacity="0.4" d="M0 0H8V18H0V0Z" fill="#000"/>
-              </svg>
-              <div class="badge-live__viewers">
-                <svg class="badge-live__eye" viewBox="0 0 12 18" fill="none" aria-hidden="true">
-                  <path d="M11.2273 3.9975C10.7863 2.85662 10.0206 1.86998 9.02489 1.15953C8.02919 0.449083 6.84715 0.0459648 5.62484 0C4.40253 0.0459648 3.22049 0.449083 2.22479 1.15953C1.2291 1.86998 0.463401 2.85662 0.0223405 3.9975C-0.00744682 4.07989 -0.00744682 4.17011 0.0223405 4.2525C0.463401 5.39338 1.2291 6.38002 2.22479 7.09047C3.22049 7.80092 4.40253 8.20404 5.62484 8.25C6.84715 8.20404 8.02919 7.80092 9.02489 7.09047C10.0206 6.38002 10.7863 5.39338 11.2273 4.2525C11.2571 4.17011 11.2571 4.07989 11.2273 3.9975ZM5.62484 6.5625C5.14275 6.5625 4.67148 6.41954 4.27064 6.15171C3.86979 5.88387 3.55737 5.50319 3.37288 5.05779C3.1884 4.6124 3.14012 4.1223 3.23418 3.64947C3.32823 3.17664 3.56038 2.74232 3.90127 2.40143C4.24216 2.06054 4.67648 1.82839 5.14931 1.73434C5.62214 1.64028 6.11224 1.68856 6.55763 1.87304C7.00303 2.05753 7.38371 2.36995 7.65155 2.7708C7.91938 3.17164 8.06234 3.64291 8.06234 4.125C8.06135 4.77116 7.80422 5.39057 7.34732 5.84748C6.89041 6.30438 6.271 6.56151 5.62484 6.5625Z" fill="#fff" transform="translate(0.375 4.875)"/>
-                  <path d="M1.5 3C2.32843 3 3 2.32843 3 1.5C3 0.671573 2.32843 0 1.5 0C0.671573 0 0 0.671573 0 1.5C0 2.32843 0.671573 3 1.5 3Z" fill="#fff" transform="translate(4.5 7.5)"/>
-                </svg>
-                <span class="badge-live__count">5,102</span>
-              </div>
-              <div class="badge-live__live">
-                <div class="badge-live__shape-wrap" aria-hidden="true">
-                  <svg class="badge-live__shape" viewBox="0 0 47 25" fill="none">
-                    <path d="M1 0H38L46 4.81395V23L38 18.186H1V0Z" fill="#FF321F"/>
-                  </svg>
-                </div>
-                <span class="badge-live__text">LIVE</span>
-              </div>
-            </div>
+            <article class="hero-roll__slide hero-roll__slide--scheduled">
+          <img class="hero-scheduled__bg" src="assets/thumbnail-dungeon-fighter.jpg" alt="던전앤파이터 겨울 디렉터 라이브 예정">
+          <div class="hero-scheduled__gradient" aria-hidden="true"></div>
+          <span class="live-card__countdown hero-scheduled__status">예정</span>
+          <div class="hero-scheduled__clock" aria-hidden="true">
+            <svg class="icon icon--clock-hero"><use href="#icon-clock-hero"/></svg>
           </div>
           <div class="hero__content">
-            <div class="hero__overlay">
-              <div class="hero__game">
-                <span class="hero__game-icon" style="background:#8f2914" aria-hidden="true">D</span>
-                <span class="hero__game-name">던전앤파이터</span>
-              </div>
-              <h1 class="hero__title">개발자 노트 — 여름 업데이트</h1>
-              <button type="button" class="hero__tag">객관식 퀴즈</button>
+            <div class="hero__game">
+              <span class="hero__game-icon" style="background:#8f2914" aria-hidden="true">D</span>
+              <span class="hero__game-name">던전앤파이터</span>
             </div>
-          </div>
-          <button type="button" class="hero__play-btn" aria-label="지금 시청">
-            <svg class="icon icon--play" aria-hidden="true"><use href="#icon-play"/></svg>
-          </button>
-          <div class="hero__progress" aria-hidden="true">
-            <div class="hero__progress-bar"></div>
+            <div class="hero__overlay hero-scheduled__overlay">
+              <h1 class="hero__title hero-scheduled__title">겨울 디렉터 라이브</h1>
+              <p class="hero-scheduled__schedule">
+                <svg class="icon icon--clock-sm" aria-hidden="true"><use href="#icon-clock"/></svg>
+                <span>오늘 <span>20:30</span> 시작 · <span data-countdown="2026-07-29T20:30:00">00:00:00 남음</span></span>
+              </p>
+              <div class="hero-scheduled__tags">
+                <span class="hero-scheduled__tag">OX 퀴즈</span>
+                <span class="hero-scheduled__tag">드롭스</span>
+                <span class="hero-scheduled__tag hero-scheduled__tag--reward">아이템 지급</span>
+              </div>
+              <button type="button" class="hero-scheduled__notify-btn">
+                <svg class="icon icon--bell" aria-hidden="true"><use href="#icon-bell"/></svg>
+                <span>알림 신청</span>
+              </button>
+            </div>
           </div>
             </article>
           </div>
@@ -308,11 +272,11 @@
               <svg class="icon icon--clock-hero"><use href="#icon-clock-hero"/></svg>
             </div>
             <div class="hero__content">
+              <div class="hero__game">
+                <span class="hero__game-icon" id="heroScheduledGameIcon" style="background:#8f2914" aria-hidden="true">D</span>
+                <span class="hero__game-name" id="heroScheduledGameName">던전앤파이터</span>
+              </div>
               <div class="hero__overlay hero-scheduled__overlay">
-                <div class="hero__game">
-                  <span class="hero__game-icon" id="heroScheduledGameIcon" style="background:#8f2914" aria-hidden="true">D</span>
-                  <span class="hero__game-name" id="heroScheduledGameName">던전앤파이터</span>
-                </div>
                 <h1 class="hero__title hero-scheduled__title" id="heroScheduledTitle">겨울 디렉터 라이브</h1>
                 <p class="hero-scheduled__schedule">
                   <svg class="icon icon--clock-sm" aria-hidden="true"><use href="#icon-clock"/></svg>
@@ -333,15 +297,7 @@
 
           <!-- Live Index Panel -->
           <aside class="live-index" id="liveIndex">
-            <button type="button" class="live-index__toggle" id="liveIndexToggle" aria-label="라이브 인덱스 토글">
-              <svg class="icon icon--live-toggle" viewBox="0 0 40 72" aria-hidden="true">
-                <path d="M0 12C0 5.37258 5.37258 0 12 0H40V72H12C5.37258 72 0 66.6274 0 60V12Z" fill="currentColor"/>
-                <g class="live-index__toggle-arrow">
-                  <path d="M17.25 19.5L22.75 25L17.25 30.5" fill="none" stroke="#141414" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </g>
-                <circle cx="20" cy="53" r="3" fill="#FF2414"/>
-              </svg>
-            </button>
+            <div class="live-index__surface">
             <div class="live-index__item live-index__item--live live-index__item--active" data-roll-index="0">
               <div class="live-index__thumb-wrap">
                 <img class="live-index__thumb" src="assets/thumbnail-maplestory.jpg" alt="메이플스토리">
@@ -351,16 +307,7 @@
                 <span class="live-badge live-badge--index">LIVE</span>
               </div>
             </div>
-            <div class="live-index__item live-index__item--scheduled"
-              data-scheduled
-              data-scheduled-bg="assets/thumbnail-fc-online.jpg"
-              data-scheduled-icon="F"
-              data-scheduled-icon-bg="#14a34d"
-              data-scheduled-game="FC 온라인"
-              data-scheduled-title="시즌 업데이트 라이브"
-              data-scheduled-time="19:00"
-              data-scheduled-countdown="2026-07-29T19:00:00"
-              data-scheduled-tags="드롭스,실시간 투표">
+            <div class="live-index__item live-index__item--scheduled" data-roll-index="1">
               <div class="live-index__thumb-wrap live-index__thumb-wrap--scheduled">
                 <img class="live-index__thumb" src="assets/thumbnail-fc-online.jpg" alt="FC 온라인">
               </div>
@@ -369,17 +316,7 @@
                 <span class="live-index__status">19:00 예정</span>
               </div>
             </div>
-            <div class="live-index__item live-index__item--scheduled"
-              data-scheduled
-              data-scheduled-bg="assets/thumbnail-dungeon-fighter.jpg"
-              data-scheduled-icon="D"
-              data-scheduled-icon-bg="#8f2914"
-              data-scheduled-game="던전앤파이터"
-              data-scheduled-title="겨울 디렉터 라이브"
-              data-scheduled-time="20:30"
-              data-scheduled-countdown="2026-07-29T20:30:00"
-              data-scheduled-tags="OX 퀴즈,드롭스,아이템 지급"
-              data-scheduled-tag-reward="아이템 지급">
+            <div class="live-index__item live-index__item--scheduled" data-roll-index="2">
               <div class="live-index__thumb-wrap live-index__thumb-wrap--scheduled">
                 <img class="live-index__thumb" src="assets/thumbnail-dungeon-fighter.jpg" alt="던전앤파이터">
               </div>
@@ -387,6 +324,7 @@
                 <span class="live-index__game">던전앤파이터</span>
                 <span class="live-index__status">20:30 예정</span>
               </div>
+            </div>
             </div>
           </aside>
         </section>
@@ -485,27 +423,26 @@
             </div>
           </section>
         </div>
-
-        <!-- Footer -->
-        <footer class="footer">
-          <nav class="footer__links">
-            <a href="https://openapi.nexon.com/ko/support/terms/" target="_blank" rel="noopener">이용약관</a>
-            <a href="https://member.nexon.com/policy/privacy.aspx" target="_blank" rel="noopener" class="footer__privacy">개인정보처리방침</a>
-            <a href="https://member.nexon.com/policy/youthprotection.aspx" target="_blank" rel="noopener">청소년보호정책</a>
-            <a href="https://company.nexon.com/kr/" target="_blank" rel="noopener">회사소개</a>
-            <a href="https://company.nexon.com/kr/csr" target="_blank" rel="noopener">윤리경영</a>
-            <a href="https://careers.nexon.com/" target="_blank" rel="noopener">채용안내</a>
-          </nav>
-          <div class="footer__info">
-            ㈜넥슨코리아 대표이사 강대현·김정욱 · 경기도 성남시 분당구 판교로 256번길 7<br>
-            전화 1588-7701 · 팩스 0502-258-8322 · E-mail contact-us@nexon.co.kr<br>
-            사업자등록번호 220-87-17483 · 통신판매업 신고번호 제2013-경기성남-1659호 ·
-            <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2208717483&apv_perm_no=" target="_blank" rel="noopener">사업자정보확인</a>
-          </div>
-          <p class="footer__copyright">© NEXON Korea Corporation All Rights Reserved</p>
-        </footer>
       </main>
     </div>
+
+    <footer class="footer">
+      <nav class="footer__links">
+        <a href="https://openapi.nexon.com/ko/support/terms/" target="_blank" rel="noopener">이용약관</a>
+        <a href="https://member.nexon.com/policy/privacy.aspx" target="_blank" rel="noopener" class="footer__privacy">개인정보처리방침</a>
+        <a href="https://member.nexon.com/policy/youthprotection.aspx" target="_blank" rel="noopener">청소년보호정책</a>
+        <a href="https://company.nexon.com/kr/" target="_blank" rel="noopener">회사소개</a>
+        <a href="https://company.nexon.com/kr/csr" target="_blank" rel="noopener">윤리경영</a>
+        <a href="https://careers.nexon.com/" target="_blank" rel="noopener">채용안내</a>
+      </nav>
+      <div class="footer__info">
+        ㈜넥슨코리아 대표이사 강대현·김정욱 · 경기도 성남시 분당구 판교로 256번길 7<br>
+        전화 1588-7701 · 팩스 0502-258-8322 · E-mail contact-us@nexon.co.kr<br>
+        사업자등록번호 220-87-17483 · 통신판매업 신고번호 제2013-경기성남-1659호 ·
+        <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2208717483&apv_perm_no=" target="_blank" rel="noopener">사업자정보확인</a>
+      </div>
+      <p class="footer__copyright">© NEXON Korea Corporation All Rights Reserved</p>
+    </footer>
   </div>
 
   <script src="js/main.js"></script>
