@@ -49,8 +49,8 @@
   --sections-gutter-y: 44px;
   --hero-max-width: calc(var(--content-max-width) - (var(--sections-gutter-x) * 2));
   --hero-aspect-ratio: 1234 / 558;
-  --hero-max-height: 640px;
-  --hero-min-height: 480px;
+  --hero-max-height: 510px;
+  --hero-min-height: 350px;
   --channel-header-height: 260px;
   --transition: 0.25s ease;
 }
@@ -754,7 +754,7 @@ a { color: inherit; text-decoration: none; }
 
 /* Hero가 줄어들면 패널도 함께 줄고, 텍스트는 숨겨 썸네일만 표시.
    단, radius가 살아있는 직사각형 카드 형태(inset·전체 border-radius)는 그대로 유지 */
-@container hero (max-width: 1140px) or (max-height: 520px) {
+@container hero (max-width: 1140px) or (max-height: 390px) {
   .hero {
     --live-index-width: calc(var(--live-index-thumb-size) + (var(--live-index-pad-x) * 2));
     --live-index-gap-y: 3px;
