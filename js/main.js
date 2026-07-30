@@ -138,44 +138,6 @@
   }
 
   function initLiveIndex() {
-    const isMobile = () => window.innerWidth <= 768;
-
-    function togglePanel(panel) {
-      const isPanelClosed = () => (
-        isMobile()
-          ? !panel.classList.contains('live-index--open')
-          : panel.classList.contains('live-index--collapsed')
-      );
-
-      const wasClosed = isPanelClosed();
-
-      if (isMobile()) {
-        panel.classList.toggle('live-index--open');
-        panel.classList.remove('live-index--collapsed');
-      } else {
-        panel.classList.toggle('live-index--collapsed');
-        panel.classList.remove('live-index--open');
-      }
-
-      if (wasClosed && !isPanelClosed()) {
-        panel.classList.toggle('live-index--arrow-flipped', panel.matches(':hover'));
-      } else if (!wasClosed && isPanelClosed()) {
-        panel.classList.remove('live-index--arrow-flipped');
-      }
-    }
-
-    document.addEventListener('click', (event) => {
-      const toggle = event.target.closest('.live-index__toggle');
-      if (!toggle) return;
-
-      const panel = toggle.closest('.live-index');
-      const heroState = panel?.closest('.hero-state');
-      if (!panel || !heroState || heroState.hidden) return;
-
-      event.preventDefault();
-      togglePanel(panel);
-    });
-
     document.querySelectorAll('.live-index').forEach((panel) => {
       panel.querySelectorAll('.live-index__item[data-roll-index]').forEach((item) => {
         item.addEventListener('click', () => {
@@ -210,9 +172,11 @@
       });
     });
 
-    document.getElementById('heroNotifyBtn')?.addEventListener('click', () => {
-      const title = document.getElementById('heroScheduledTitle')?.textContent;
-      console.log('[A2S] hero_notify_click', { title });
+    document.querySelectorAll('.hero-scheduled__notify-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const title = btn.closest('.hero__overlay')?.querySelector('.hero__title')?.textContent;
+        console.log('[A2S] hero_notify_click', { title });
+      });
     });
   }
 
