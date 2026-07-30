@@ -642,7 +642,87 @@
             document.dispatchEvent(new CustomEvent('vod-filter-changed'));
           });
         }
+
+        if (target !== 'winner') {
+          document.dispatchEvent(new CustomEvent('prize-detail-close'));
+        }
       });
+    });
+  }
+
+  /* ===== My Page Prize Detail ===== */
+  function initMypagePrizeDetail() {
+    const listView = document.getElementById('winnerListView');
+    const detail = document.getElementById('prizeDetail');
+    const backBtn = document.getElementById('prizeDetailBack');
+    const copyBtn = document.getElementById('prizeDetailCopy');
+    if (!listView || !detail) return;
+
+    const fields = {
+      icon: document.getElementById('prizeDetailIcon'),
+      game: document.getElementById('prizeDetailGame'),
+      date: document.getElementById('prizeDetailDate'),
+      live: document.getElementById('prizeDetailLive'),
+      event: document.getElementById('prizeDetailEvent'),
+      reward: document.getElementById('prizeDetailReward'),
+      coupon: document.getElementById('prizeDetailCoupon'),
+      expiry: document.getElementById('prizeDetailExpiry'),
+    };
+
+    function closeDetail() {
+      detail.hidden = true;
+      listView.hidden = false;
+    }
+
+    function openDetail(btn) {
+      const dataset = btn.dataset;
+      if (fields.icon) {
+        fields.icon.textContent = dataset.prizeIcon || '';
+        fields.icon.style.background = dataset.prizeColor ? `${dataset.prizeColor}33` : 'rgba(255,255,255,0.2)';
+      }
+      if (fields.game) fields.game.textContent = dataset.prizeGame || '';
+      if (fields.date) fields.date.textContent = dataset.prizeDate || '';
+      if (fields.live) fields.live.textContent = dataset.prizeLive || '';
+      if (fields.event) fields.event.textContent = dataset.prizeEvent || '';
+      if (fields.reward) fields.reward.textContent = dataset.prizeReward || '';
+      if (fields.coupon) fields.coupon.textContent = dataset.prizeCoupon || '';
+      if (fields.expiry) {
+        fields.expiry.textContent = dataset.prizeExpiry
+          ? `쿠폰 유효기간 ${dataset.prizeExpiry} 까지`
+          : '';
+      }
+
+      listView.hidden = true;
+      detail.hidden = false;
+      detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.querySelectorAll('[data-prize-open]').forEach((btn) => {
+      btn.addEventListener('click', () => openDetail(btn));
+    });
+
+    backBtn?.addEventListener('click', closeDetail);
+    document.addEventListener('prize-detail-close', closeDetail);
+
+    copyBtn?.addEventListener('click', async () => {
+      const code = fields.coupon?.textContent;
+      if (!code) return;
+
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.classList.add('prize-detail__copy--copied');
+        copyBtn.setAttribute('aria-label', '복사됨');
+        setTimeout(() => {
+          copyBtn.classList.remove('prize-detail__copy--copied');
+          copyBtn.setAttribute('aria-label', '쿠폰 코드 복사');
+        }, 2000);
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(fields.coupon);
+        const selection = window.getSelection();
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+      }
     });
   }
 
@@ -793,6 +873,7 @@
     safeInit('initThumbPreviews', initThumbPreviews);
     safeInit('initChannelNotify', initChannelNotify);
     safeInit('initMypageTabs', initMypageTabs);
+    safeInit('initMypagePrizeDetail', initMypagePrizeDetail);
     safeInit('initMypageFilter', initMypageFilter);
     safeInit('initMypageNotice', initMypageNotice);
     safeInit('initVodPagination', initVodPagination);
