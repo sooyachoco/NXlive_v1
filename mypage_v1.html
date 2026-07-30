@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="이벤트 참여 내역 - NEXON LIVE">
+  <title>이벤트 참여 내역 - NEXON LIVE</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="css/style.css?v=16">
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <linearGradient id="logo-grad-1" x1="4.4988" y1="5.14225" x2="13.8961" y2="10.4865" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#26BDFF"/><stop offset="0.909675" stop-color="#17FF81"/>
+      </linearGradient>
+      <linearGradient id="logo-grad-2" x1="9.86186" y1="13.7502" x2="18.4052" y2="8.72686" gradientUnits="userSpaceOnUse">
+        <stop offset="0.2" stop-color="#26BDFF"/><stop offset="0.95357" stop-color="#17FF81"/>
+      </linearGradient>
+    </defs>
+    <symbol id="icon-logo-mark" viewBox="0 0 19.2335 22">
+      <path d="M9.35648 10.9994L14.6441 7.94684L5.28711 2.54297V8.64993L9.35648 10.9994Z" fill="url(#logo-grad-1)"/>
+      <path d="M9.35704 10.9996L5.28766 13.349V2.54318L1.04591 0.0949685C0.581062 -0.174257 0 0.160822 0 0.699273V21.3018C0 21.8383 0.581062 22.1734 1.04591 21.9061L14.6447 14.054L9.35704 11.0015V10.9996Z" fill="#2981FF"/>
+      <path d="M14.6431 14.0523L18.8849 11.6021C19.3497 11.3329 19.3497 10.6627 18.8849 10.3935L14.6431 7.94336L9.35547 10.9959L14.6431 14.0484V14.0523Z" fill="url(#logo-grad-2)"/>
+    </symbol>
+    <symbol id="icon-logo-text" viewBox="0 0 130.84 11.66">
+      <path d="M87.9054 0H84.7852V11.66H95.9227V9.19038H87.9054V0Z" fill="currentColor"/>
+      <path d="M113.558 0L110.725 9.19038H109.461L106.714 0H103.523L107.01 11.66H113.264L116.75 0H113.558Z" fill="currentColor"/>
+      <path d="M101.181 0H98.0605V11.66H101.181V0Z" fill="currentColor"/>
+      <path d="M28.1395 9.19271H19.3409V6.95633H28.1395V4.47043H19.3409V2.47424H28.1395V0H16.2207V11.66H28.1395V9.19271Z" fill="currentColor"/>
+      <path d="M130.84 9.19271H122.042V6.95633H130.84V4.47043H122.042V2.47424H130.84V0H118.924V11.66H130.84V9.19271Z" fill="currentColor"/>
+      <path d="M66.0437 4.61035L73.4314 11.66H75.7844V0H72.6642V7.05194L65.2764 0H62.9258V11.66H66.0437V4.61035Z" fill="currentColor"/>
+      <path d="M59.5641 0H46.7031V11.66H59.5641V0ZM56.4485 9.19271H49.8257V2.47191H56.4485V9.19038V9.19271Z" fill="currentColor"/>
+      <path d="M3.1202 4.61035L10.5103 11.66H12.8609V0H9.74306V7.05194L2.35298 0H0V11.66H3.1202V4.61035Z" fill="currentColor"/>
+      <path d="M37.4268 8.05936L40.6217 11.66H44.5604L39.3974 5.83464L44.5744 0H40.6263L37.4245 3.61459L34.2204 0H30.2793L35.4517 5.83464L30.2886 11.66H34.232L37.4245 8.05936H37.4268Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 17.3545 16.0732">
+      <path d="M8.67676 11.25C10.3846 11.25 11.819 11.4639 13.1309 11.9639C14.4445 12.4645 15.5875 13.234 16.7373 14.2793L17.3545 14.8398L16.2334 16.0732L15.6162 15.5127C14.5763 14.5673 13.6073 13.9293 12.5371 13.5215C11.4651 13.1129 10.2436 12.917 8.67676 12.917C7.11025 12.917 5.88923 13.113 4.81738 13.5215C3.7472 13.9294 2.77728 14.5672 1.7373 15.5127L1.12109 16.0732L0 14.8398L0.616211 14.2793C1.76604 13.234 2.90993 12.4646 4.22363 11.9639C5.53534 11.464 6.96921 11.25 8.67676 11.25ZM8.67676 0C11.4213 0 13.6465 2.22522 13.6465 4.96973C13.6463 7.71406 11.4211 9.93848 8.67676 9.93848C5.93254 9.93828 3.7082 7.71394 3.70801 4.96973C3.70801 2.22534 5.93242 0.000192215 8.67676 0ZM8.67676 1.66699C6.85289 1.66718 5.37402 3.14582 5.37402 4.96973C5.37422 6.79347 6.85301 8.27227 8.67676 8.27246C10.5007 8.27246 11.9793 6.79359 11.9795 4.96973C11.9795 3.1457 10.5008 1.66699 8.67676 1.66699Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-home" viewBox="0 0 20 20">
+      <path d="M3 8.4L10 2.8L17 8.4V17H12.6V11.8H7.4V17H3V8.4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-gift" viewBox="0 0 20 20">
+      <rect x="3" y="8.6" width="14" height="8.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <rect x="2.2" y="5.8" width="15.6" height="3.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <line x1="10" y1="6" x2="10" y2="17" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M10 5.8H7.3C6.15 5.8 5.3 4.93 5.3 4C5.3 3.07 6.05 2.4 6.9 2.4C9 2.4 10 5.8 10 5.8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M10 5.8H12.7C13.85 5.8 14.7 4.93 14.7 4C14.7 3.07 13.95 2.4 13.1 2.4C11 2.4 10 5.8 10 5.8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-info" viewBox="0 0 16 16">
+      <circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <line x1="8" y1="7.2" x2="8" y2="11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <circle cx="8" cy="5.2" r="0.9" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 12 12">
+      <path d="M2.5 4.5L6 8L9.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 28 32">
+      <path d="M25.2 12.9C27.5 14.25 27.5 17.75 25.2 19.1L6.1 30.3C3.75 31.68 0.8 29.98 0.8 27.25V4.75C0.8 2.02 3.75 0.32 6.1 1.7L25.2 12.9Z" fill="currentColor" fill-opacity="0.7"/>
+    </symbol>
+    <symbol id="icon-tooltip-arrow" viewBox="0 0 8 8">
+      <path d="M3.99996 0L8 8H4H0L3.99996 0Z" fill="currentColor" fill-opacity="0.8"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 16 16">
+      <path d="M3 3L13 13M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header__brand">
+        <button class="header__menu-btn" id="menuBtn" aria-label="메뉴 열기">☰</button>
+        <a href="index_v1.html" class="header__logo" aria-label="NEXON LIVE 홈">
+          <svg class="icon icon--logo-mark" aria-hidden="true"><use href="#icon-logo-mark"/></svg>
+          <svg class="icon icon--logo-text" aria-hidden="true"><use href="#icon-logo-text"/></svg>
+        </a>
+      </div>
+      <div class="header__actions">
+        <button class="header__theme-btn" id="themeToggle" aria-label="테마 전환">🌙</button>
+        <a href="#" class="header__login" id="loginBtn">
+          <svg class="icon icon--user" aria-hidden="true"><use href="#icon-user"/></svg>
+          <span>로그인</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="main-layout">
+      <!-- Sidebar Overlay (Mobile) -->
+      <div class="sidebar__overlay" id="sidebarOverlay"></div>
+
+      <!-- LNB Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <nav class="sidebar__nav">
+          <a href="index_v1.html" class="sidebar__nav-item">
+            <svg class="icon icon--nav" aria-hidden="true"><use href="#icon-home"/></svg>
+            <span>홈</span>
+          </a>
+          <a href="mypage_v1.html" class="sidebar__nav-item sidebar__nav-item--active" aria-current="page">
+            <svg class="icon icon--nav" aria-hidden="true"><use href="#icon-gift"/></svg>
+            <span>이벤트 참여 내역</span>
+          </a>
+        </nav>
+        <div class="sidebar__divider"></div>
+        <div class="sidebar__game-header">
+          <span>게임</span>
+          <button class="sidebar__info-btn" data-tooltip="방송이 많은 순서대로<br>정렬되었습니다." aria-label="정렬 안내">
+            <svg class="icon icon--info" aria-hidden="true"><use href="#icon-info"/></svg>
+          </button>
+        </div>
+        <div class="sidebar__games">
+          <a href="channel_v1.html" class="sidebar__game-item">
+            <span class="sidebar__game-icon" style="background:#f29e00">M</span>
+            <span class="sidebar__game-label">
+              <span>메이플스토리</span>
+              <span class="live-badge">LIVE</span>
+            </span>
+          </a>
+          <a href="channel_v1.html" class="sidebar__game-item">
+            <span class="sidebar__game-icon" style="background:#f0404f">마</span>
+            <span>마비노기 모바일</span>
+          </a>
+          <a href="channel_v1.html" class="sidebar__game-item">
+            <span class="sidebar__game-icon" style="background:#0a42d1">F</span>
+            <span>FC Online</span>
+          </a>
+          <a href="channel_v1.html" class="sidebar__game-item">
+            <span class="sidebar__game-icon" style="background:#6138ab">마</span>
+            <span>마비노기</span>
+          </a>
+          <a href="channel_v1.html" class="sidebar__game-item">
+            <span class="sidebar__game-icon" style="background:#8f2914">D</span>
+            <span>던전앤파이터</span>
+          </a>
+          <a href="channel_v1.html" class="sidebar__game-item">
+            <span class="sidebar__game-icon" style="background:#14a34d">F</span>
+            <span>FC모바일</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="content content--mypage">
+        <div class="mypage-page">
+          <div class="mypage__header">
+            <h1 class="mypage__greeting"><span class="mypage__greeting-name">루이러뷰</span><span class="mypage__greeting-rest"> 님, 안녕하세요!</span></h1>
+          </div>
+
+          <nav class="mypage__tabs" aria-label="이벤트 참여 내역 탭">
+            <button type="button" class="mypage__tab mypage__tab--active" data-tab-target="winner">당첨 현황</button>
+            <button type="button" class="mypage__tab" data-tab-target="watch">시청 기록</button>
+            <button type="button" class="mypage__tab" data-tab-target="notice">알림 · 설정</button>
+          </nav>
+
+          <section class="mypage__section" aria-label="당첨 현황" data-tab-panel="winner">
+            <p class="mypage__desc">최근 8개월 간 참여한 넥슨라이브 방송 이벤트 내역입니다. 진행 중인 방송의 이벤트 내역은 방송 종료 후 확인 가능합니다.</p>
+
+            <div class="mypage__filter">
+              <button type="button" class="mypage__filter-btn" aria-haspopup="listbox" aria-expanded="false">
+                <span class="mypage__filter-label">전체 게임</span>
+                <svg class="icon icon--chevron-down" aria-hidden="true"><use href="#icon-chevron-down"/></svg>
+              </button>
+              <ul class="mypage__filter-menu" role="listbox" aria-label="게임 선택" hidden>
+                <li class="mypage__filter-option mypage__filter-option--active" role="option" data-game="all" data-label="전체 게임" aria-selected="true">전체 게임</li>
+                <li class="mypage__filter-option" role="option" data-game="메이플스토리" data-label="메이플스토리" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#f29e00">M</span><span class="mypage__filter-option-label">메이플스토리</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="마비노기 모바일" data-label="마비노기 모바일" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#f0404f">마</span><span class="mypage__filter-option-label">마비노기 모바일</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="FC Online" data-label="FC Online" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#0a42d1">F</span><span class="mypage__filter-option-label">FC Online</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="마비노기" data-label="마비노기" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#6138ab">마</span><span class="mypage__filter-option-label">마비노기</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="던전앤파이터" data-label="던전앤파이터" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#8f2914">D</span><span class="mypage__filter-option-label">던전앤파이터</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="FC모바일" data-label="FC모바일" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#14a34d">F</span><span class="mypage__filter-option-label">FC모바일</span>
+                </li>
+              </ul>
+            </div>
+
+            <h2 class="mypage__list-title" hidden></h2>
+
+            <div class="event-history-list">
+              <article class="event-card mypage__filterable-card" data-game="FC Online">
+                <div class="event-card__header">
+                  <div class="event-card__icon" style="background:#0d6eff">F</div>
+                  <div class="event-card__title">
+                    <p class="event-card__name">25HR 프리미엄 시그니처 패키지</p>
+                    <p class="event-card__meta">FC온라인 · 2026.05.30</p>
+                  </div>
+                </div>
+                <div class="event-card__divider"></div>
+                <div class="event-card__results">
+                  <div class="event-result">
+                    <span class="event-result__badge">마감</span>
+                    <p class="event-result__text">[마일리지][CU, 24EP 9강 기회] 고급 패키지 객관식 퀴즈</p>
+                  </div>
+                  <div class="event-result">
+                    <span class="event-result__badge">마감</span>
+                    <p class="event-result__text">[25HR 8강 Top 5 기회] 비밀금고 O/X 퀴즈</p>
+                  </div>
+                  <div class="event-result">
+                    <span class="event-result__badge">마감</span>
+                    <p class="event-result__text">[멤버십] 5,000 (+400) FC (특별 할인) 객관식 퀴즈</p>
+                  </div>
+                  <div class="event-result event-result--won">
+                    <div class="event-result__group">
+                      <span class="event-result__badge event-result__badge--won">당첨</span>
+                      <p class="event-result__text">[마일리지][CU, 24EP 9강 기회] 고급 패키지 객관식 퀴즈</p>
+                    </div>
+                    <a href="#" class="event-result__link">상품확인 ›</a>
+                  </div>
+                  <div class="event-result event-result--won">
+                    <div class="event-result__group">
+                      <span class="event-result__badge event-result__badge--won">당첨</span>
+                      <p class="event-result__text">[25HR 8강 Top 5 기회] 비밀금고 O/X 퀴즈</p>
+                    </div>
+                    <a href="#" class="event-result__link">상품확인 ›</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="event-card mypage__filterable-card" data-game="메이플스토리">
+                <div class="event-card__header">
+                  <div class="event-card__icon" style="background:#ff4540">M</div>
+                  <div class="event-card__title">
+                    <p class="event-card__name">여름 쇼케이스 드롭스 이벤트</p>
+                    <p class="event-card__meta">메이플스토리 · 2026.05.28</p>
+                  </div>
+                </div>
+                <div class="event-card__divider"></div>
+                <div class="event-card__results">
+                  <div class="event-result">
+                    <span class="event-result__badge">마감</span>
+                    <p class="event-result__text">[드롭스] 한정 칭호 응모 이벤트</p>
+                  </div>
+                  <div class="event-result event-result--won">
+                    <div class="event-result__group">
+                      <span class="event-result__badge event-result__badge--won">당첨</span>
+                      <p class="event-result__text">[출석] 쇼케이스 시청 인증 보상</p>
+                    </div>
+                    <a href="#" class="event-result__link">상품확인 ›</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="event-card mypage__filterable-card" data-game="던전앤파이터">
+                <div class="event-card__header">
+                  <div class="event-card__icon" style="background:#1c1f24">D</div>
+                  <div class="event-card__title">
+                    <p class="event-card__name">디렉터 라이브 참여 이벤트</p>
+                    <p class="event-card__meta">던전앤파이터 · 2026.05.20</p>
+                  </div>
+                </div>
+                <div class="event-card__divider"></div>
+                <div class="event-card__results">
+                  <div class="event-result">
+                    <span class="event-result__badge event-result__badge--none">미참여</span>
+                    <p class="event-result__text">[투표] 신규 에픽 선호도 조사</p>
+                  </div>
+                  <div class="event-result">
+                    <span class="event-result__badge">마감</span>
+                    <p class="event-result__text">[O/X] 업데이트 상식 퀴즈</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <p class="mypage__empty" hidden>선택한 게임의 이벤트 참여 내역이 없습니다.</p>
+          </section>
+
+          <section class="mypage__section" aria-label="시청 기록" data-tab-panel="watch" hidden>
+            <p class="mypage__desc">최근 8개월 간 시청한 넥슨라이브 방송 시청 기록입니다.</p>
+
+            <div class="mypage__filter">
+              <button type="button" class="mypage__filter-btn" aria-haspopup="listbox" aria-expanded="false">
+                <span class="mypage__filter-label">전체 게임</span>
+                <svg class="icon icon--chevron-down" aria-hidden="true"><use href="#icon-chevron-down"/></svg>
+              </button>
+              <ul class="mypage__filter-menu" role="listbox" aria-label="게임 선택" hidden>
+                <li class="mypage__filter-option mypage__filter-option--active" role="option" data-game="all" data-label="전체 게임" aria-selected="true">전체 게임</li>
+                <li class="mypage__filter-option" role="option" data-game="메이플스토리" data-label="메이플스토리" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#f29e00">M</span><span class="mypage__filter-option-label">메이플스토리</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="마비노기 모바일" data-label="마비노기 모바일" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#f0404f">마</span><span class="mypage__filter-option-label">마비노기 모바일</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="FC Online" data-label="FC Online" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#0a42d1">F</span><span class="mypage__filter-option-label">FC Online</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="마비노기" data-label="마비노기" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#6138ab">마</span><span class="mypage__filter-option-label">마비노기</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="던전앤파이터" data-label="던전앤파이터" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#8f2914">D</span><span class="mypage__filter-option-label">던전앤파이터</span>
+                </li>
+                <li class="mypage__filter-option" role="option" data-game="FC모바일" data-label="FC모바일" aria-selected="false">
+                  <span class="mypage__filter-icon" style="background:#14a34d">F</span><span class="mypage__filter-option-label">FC모바일</span>
+                </li>
+              </ul>
+            </div>
+
+            <h2 class="mypage__list-title" hidden></h2>
+
+            <div class="vod-grid">
+              <article class="vod-card mypage__filterable-card" data-game="FC Online">
+                <div class="vod-card__thumb-wrap">
+                  <img class="vod-card__thumb" src="assets/vod-thumbnail-1.jpg" alt="">
+                  <span class="vod-card__duration">42:18</span>
+                </div>
+                <div class="vod-card__body">
+                  <h3 class="vod-card__title">프로게이머와 함께하는 랭킹 매치</h3>
+                  <p class="vod-card__meta">FC 온라인 · 어제 · 조회 23만회</p>
+                </div>
+              </article>
+              <article class="vod-card mypage__filterable-card" data-game="메이플스토리">
+                <div class="vod-card__thumb-wrap">
+                  <img class="vod-card__thumb" src="assets/channel-header-maplestory.jpg" alt="">
+                  <span class="vod-card__duration">42:18</span>
+                </div>
+                <div class="vod-card__body">
+                  <h3 class="vod-card__title">여름 이벤트 소개 라이브</h3>
+                  <p class="vod-card__meta">메이플스토리 · 2일 전 · 조회 19만회</p>
+                </div>
+              </article>
+              <article class="vod-card mypage__filterable-card" data-game="블루 아카이브">
+                <div class="vod-card__thumb-wrap">
+                  <img class="vod-card__thumb" src="assets/media-background-blur.jpg" alt="">
+                  <span class="vod-card__duration">42:18</span>
+                </div>
+                <div class="vod-card__body">
+                  <h3 class="vod-card__title">신규 캐릭터 스포일러</h3>
+                  <p class="vod-card__meta">블루 아카이브 · 3일 전 · 조회 14만회</p>
+                </div>
+              </article>
+              <article class="vod-card mypage__filterable-card" data-game="던전앤파이터">
+                <div class="vod-card__thumb-wrap">
+                  <img class="vod-card__thumb" src="assets/live-thumbnail-2.jpg" alt="">
+                  <span class="vod-card__duration">42:18</span>
+                </div>
+                <div class="vod-card__body">
+                  <h3 class="vod-card__title">개발팀 Q&amp;A 하이라이트</h3>
+                  <p class="vod-card__meta">던전앤파이터 · 4일 전 · 조회 11만회</p>
+                </div>
+              </article>
+              <article class="vod-card mypage__filterable-card" data-game="카트라이더 러쉬">
+                <div class="vod-card__thumb-wrap">
+                  <img class="vod-card__thumb" src="assets/live-thumbnail-4.jpg" alt="">
+                  <span class="vod-card__duration">42:18</span>
+                </div>
+                <div class="vod-card__body">
+                  <h3 class="vod-card__title">시즌 트레일러 공개</h3>
+                  <p class="vod-card__meta">카트라이더 러쉬 · 5일 전 · 조회 9.8만회</p>
+                </div>
+              </article>
+              <article class="vod-card mypage__filterable-card" data-game="바람의나라">
+                <div class="vod-card__thumb-wrap">
+                  <img class="vod-card__thumb" src="assets/live-thumbnail-1.jpg" alt="">
+                  <span class="vod-card__duration">42:18</span>
+                </div>
+                <div class="vod-card__body">
+                  <h3 class="vod-card__title">25주년 감사 방송 다시보기</h3>
+                  <p class="vod-card__meta">바람의나라 · 6일 전 · 조회 7.2만회</p>
+                </div>
+              </article>
+              <article class="vod-card mypage__filterable-card" data-game="메이플M">
+                <div class="vod-card__thumb-wrap vod-card__thumb-wrap--portrait">
+                  <img class="vod-card__blur-bg" src="assets/live-thumbnail-3.jpg" alt="">
+                  <div class="vod-card__shade"></div>
+                  <img class="vod-card__portrait" src="assets/live-thumbnail-3.jpg" alt="">
+                  <span class="vod-card__duration">42:18</span>
+                </div>
+                <div class="vod-card__body">
+                  <h3 class="vod-card__title">여름 방학 특별 이벤트</h3>
+                  <p class="vod-card__meta">메이플M · 1주 전 · 조회 5.4만회</p>
+                </div>
+              </article>
+              <article class="vod-card mypage__filterable-card" data-game="V4">
+                <div class="vod-card__thumb-wrap">
+                  <img class="vod-card__thumb" src="assets/live-thumbnail-5.jpg" alt="">
+                  <span class="vod-card__duration">42:18</span>
+                </div>
+                <div class="vod-card__body">
+                  <h3 class="vod-card__title">V4 신규 던전 소개</h3>
+                  <p class="vod-card__meta">V4 · 1주 전 · 조회 4.1만회</p>
+                </div>
+              </article>
+            </div>
+
+            <p class="mypage__empty" hidden>선택한 게임의 시청 기록이 없습니다.</p>
+          </section>
+
+          <section class="mypage__section" aria-label="알림 · 설정" data-tab-panel="notice" hidden>
+            <div class="notice-setting">
+              <div class="notice-setting__row">
+                <div class="notice-setting__info">
+                  <p class="notice-setting__title">방송 시작 알림</p>
+                  <p class="notice-setting__desc">알림받는 게임의 라이브가 시작되면 넥슨플레이 푸시로 안내 · 개별 방송 신청도 해당 게임 전체 방송 알림으로 동의 처리됩니다</p>
+                </div>
+                <button type="button" class="toggle-switch toggle-switch--on" id="broadcastNotifyToggle" role="switch" aria-checked="true" aria-label="방송 시작 알림">
+                  <span class="toggle-switch__thumb"></span>
+                </button>
+              </div>
+              <div class="notice-setting__divider"></div>
+              <div class="notice-setting__row">
+                <div class="notice-setting__info">
+                  <p class="notice-setting__title">알림받는 게임</p>
+                  <p class="notice-setting__games" id="notifyGamesText">메이플스토리 · FC Online</p>
+                </div>
+                <button type="button" class="btn-outline" id="editNotifyGamesBtn">편집</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <nav class="footer__links">
+        <a href="https://openapi.nexon.com/ko/support/terms/" target="_blank" rel="noopener">이용약관</a>
+        <a href="https://member.nexon.com/policy/privacy.aspx" target="_blank" rel="noopener" class="footer__privacy">개인정보처리방침</a>
+        <a href="https://member.nexon.com/policy/youthprotection.aspx" target="_blank" rel="noopener">청소년보호정책</a>
+        <a href="https://company.nexon.com/kr/" target="_blank" rel="noopener">회사소개</a>
+        <a href="https://company.nexon.com/kr/csr" target="_blank" rel="noopener">윤리경영</a>
+        <a href="https://careers.nexon.com/" target="_blank" rel="noopener">채용안내</a>
+      </nav>
+      <div class="footer__info">
+        ㈜넥슨코리아 대표이사 강대현·김정욱 · 경기도 성남시 분당구 판교로 256번길 7<br>
+        전화 1588-7701 · 팩스 0502-258-8322 · E-mail contact-us@nexon.co.kr<br>
+        사업자등록번호 220-87-17483 · 통신판매업 신고번호 제2013-경기성남-1659호 ·
+        <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2208717483&apv_perm_no=" target="_blank" rel="noopener">사업자정보확인</a>
+      </div>
+      <p class="footer__copyright">© NEXON Korea Corporation All Rights Reserved</p>
+    </footer>
+
+    <div class="modal-overlay" id="notifyGamesModalOverlay" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="notifyGamesModalTitle">
+        <div class="modal__header">
+          <h2 class="modal__title" id="notifyGamesModalTitle">알림받는 게임 편집</h2>
+          <button type="button" class="modal__close" id="notifyGamesModalClose" aria-label="닫기">
+            <svg class="icon icon--close" aria-hidden="true"><use href="#icon-close"/></svg>
+          </button>
+        </div>
+        <p class="modal__desc">선택한 게임의 방송이 시작되면 넥슨플레이 앱(모바일)으로 알림을 받습니다. 신청은 넥슨ID 단위로 통합 관리됩니다.</p>
+        <div class="modal__checklist">
+          <label class="checklist-item">
+            <input type="checkbox" value="메이플스토리" checked>
+            <span class="checklist-item__box"></span>
+            <span class="checklist-item__label">메이플스토리</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" value="마비노기 모바일">
+            <span class="checklist-item__box"></span>
+            <span class="checklist-item__label">마비노기 모바일</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" value="FC Online" checked>
+            <span class="checklist-item__box"></span>
+            <span class="checklist-item__label">FC Online</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" value="마비노기">
+            <span class="checklist-item__box"></span>
+            <span class="checklist-item__label">마비노기</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" value="던전앤파이터">
+            <span class="checklist-item__box"></span>
+            <span class="checklist-item__label">던전앤파이터</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" value="FC 모바일">
+            <span class="checklist-item__box"></span>
+            <span class="checklist-item__label">FC 모바일</span>
+          </label>
+        </div>
+        <div class="modal__footer">
+          <button type="button" class="btn-secondary" id="notifyGamesCancelBtn">취소</button>
+          <button type="button" class="btn-primary" id="notifyGamesSaveBtn">저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

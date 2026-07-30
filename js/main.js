@@ -532,6 +532,151 @@
     });
   }
 
+  /* ===== My Page Tabs ===== */
+  function initMypageTabs() {
+    const tabs = document.querySelectorAll('.mypage__tab');
+    if (!tabs.length) return;
+
+    const panels = document.querySelectorAll('.mypage__section[data-tab-panel]');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.remove('mypage__tab--active'));
+        tab.classList.add('mypage__tab--active');
+
+        const target = tab.dataset.tabTarget;
+        if (!target || !panels.length) return;
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.tabPanel !== target;
+        });
+      });
+    });
+  }
+
+  /* ===== My Page Notice & Settings ===== */
+  function initMypageNotice() {
+    const toggle = document.getElementById('broadcastNotifyToggle');
+    toggle?.addEventListener('click', () => {
+      const isOn = toggle.classList.toggle('toggle-switch--on');
+      toggle.setAttribute('aria-checked', String(isOn));
+    });
+
+    const editBtn = document.getElementById('editNotifyGamesBtn');
+    const overlay = document.getElementById('notifyGamesModalOverlay');
+    const closeBtn = document.getElementById('notifyGamesModalClose');
+    const cancelBtn = document.getElementById('notifyGamesCancelBtn');
+    const saveBtn = document.getElementById('notifyGamesSaveBtn');
+    const gamesText = document.getElementById('notifyGamesText');
+    if (!editBtn || !overlay) return;
+
+    const checkboxes = overlay.querySelectorAll('input[type="checkbox"]');
+    let savedState = Array.from(checkboxes).map((cb) => cb.checked);
+
+    function openModal() {
+      savedState = Array.from(checkboxes).map((cb) => cb.checked);
+      overlay.hidden = false;
+    }
+
+    function closeModal(restore) {
+      if (restore) {
+        checkboxes.forEach((cb, i) => { cb.checked = savedState[i]; });
+      }
+      overlay.hidden = true;
+    }
+
+    editBtn.addEventListener('click', openModal);
+    closeBtn?.addEventListener('click', () => closeModal(true));
+    cancelBtn?.addEventListener('click', () => closeModal(true));
+
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) closeModal(true);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !overlay.hidden) closeModal(true);
+    });
+
+    saveBtn?.addEventListener('click', () => {
+      const selected = Array.from(checkboxes)
+        .filter((cb) => cb.checked)
+        .map((cb) => cb.value);
+
+      if (gamesText) {
+        gamesText.textContent = selected.length ? selected.join(' · ') : '알림받는 게임이 없습니다';
+      }
+      closeModal(false);
+    });
+  }
+
+  /* ===== My Page Game Filter ===== */
+  function initMypageFilter() {
+    document.querySelectorAll('.mypage__filter').forEach((filter) => {
+      const btn = filter.querySelector('.mypage__filter-btn');
+      const menu = filter.querySelector('.mypage__filter-menu');
+      const label = filter.querySelector('.mypage__filter-label');
+      const section = filter.closest('.mypage__section');
+      const cards = section ? section.querySelectorAll('.mypage__filterable-card') : [];
+      const emptyState = section ? section.querySelector('.mypage__empty') : null;
+      const listTitle = section ? section.querySelector('.mypage__list-title') : null;
+      if (!btn || !menu || !label) return;
+
+      function closeMenu() {
+        menu.hidden = true;
+        filter.removeAttribute('data-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+
+      function openMenu() {
+        menu.hidden = false;
+        filter.setAttribute('data-open', 'true');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
+      btn.addEventListener('click', () => {
+        if (menu.hidden) openMenu();
+        else closeMenu();
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!filter.contains(event.target)) closeMenu();
+      });
+
+      menu.querySelectorAll('.mypage__filter-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          const game = option.dataset.game;
+
+          menu.querySelectorAll('.mypage__filter-option').forEach((opt) => {
+            opt.classList.remove('mypage__filter-option--active');
+            opt.setAttribute('aria-selected', 'false');
+          });
+          option.classList.add('mypage__filter-option--active');
+          option.setAttribute('aria-selected', 'true');
+          const optionLabel = option.dataset.label || option.textContent.trim();
+          label.textContent = optionLabel;
+
+          let visibleCount = 0;
+          cards.forEach((card) => {
+            const match = game === 'all' || card.dataset.game === game;
+            card.hidden = !match;
+            if (match) visibleCount += 1;
+          });
+          if (emptyState) emptyState.hidden = visibleCount > 0;
+
+          if (listTitle) {
+            if (game === 'all') {
+              listTitle.hidden = true;
+            } else {
+              listTitle.textContent = `${optionLabel} (${visibleCount})`;
+              listTitle.hidden = false;
+            }
+          }
+
+          closeMenu();
+        });
+      });
+    });
+  }
+
   /* ===== Init ===== */
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -545,6 +690,9 @@
     initLiveIndex();
     initThumbPreviews();
     initChannelNotify();
+    initMypageTabs();
+    initMypageFilter();
+    initMypageNotice();
 
     document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
   });
