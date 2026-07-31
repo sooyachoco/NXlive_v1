@@ -65,6 +65,16 @@
   }
 
   /* ===== Live Index Panel Toggle ===== */
+  function getHeroStateFromPanel(panel) {
+    return panel?.closest('.hero-block')?.querySelector('.hero-state')
+      || document.getElementById('hero');
+  }
+
+  function getLiveIndexFromHero(heroState) {
+    return heroState?.closest('.hero-block')?.querySelector('.live-index')
+      || document.getElementById('liveIndex');
+  }
+
   function updateLiveIndexActive(panel, activeItem) {
     panel.querySelectorAll('.live-index__item').forEach((item) => {
       item.classList.toggle('live-index__item--active', item === activeItem);
@@ -141,7 +151,7 @@
     document.querySelectorAll('.live-index').forEach((panel) => {
       panel.querySelectorAll('.live-index__item[data-roll-index]').forEach((item) => {
         item.addEventListener('click', () => {
-          const heroState = panel.closest('.hero-state');
+          const heroState = getHeroStateFromPanel(panel);
           if (heroState?.hidden) return;
 
           const rollIndex = Number(item.dataset.rollIndex);
@@ -157,7 +167,7 @@
 
       panel.querySelectorAll('.live-index__item[data-scheduled]').forEach((item) => {
         item.addEventListener('click', () => {
-          const heroState = panel.closest('.hero-state');
+          const heroState = getHeroStateFromPanel(panel);
           if (heroState?.hidden) return;
 
           setHeroScheduledMode(heroState, panel, item);
@@ -513,7 +523,7 @@
         if (!active) resetSlidePreview(slide);
       });
 
-      const liveIndex = heroState?.querySelector('.live-index');
+      const liveIndex = getLiveIndexFromHero(heroState);
       liveIndex?.querySelectorAll('.live-index__item[data-roll-index]').forEach((item) => {
         const rollIndex = Number(item.dataset.rollIndex);
         item.classList.toggle('live-index__item--active', rollIndex === current);

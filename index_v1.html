@@ -7,7 +7,7 @@
   <title>NEXON LIVE</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=27">
+  <link rel="stylesheet" href="css/style.css?v=42">
 </head>
 <body>
   <!-- SVG Icon Sprite (UI icons only — thumbnails use <img>) -->
@@ -160,6 +160,7 @@
 
       <!-- Main Content -->
       <main class="content">
+        <div class="hero-block">
         <section class="hero hero-state hero-state--live" id="hero">
           <div class="hero-roll" data-hero-roll="live">
             <article class="hero-roll__slide is-active">
@@ -211,7 +212,7 @@
             <article class="hero-roll__slide hero-roll__slide--scheduled">
           <img class="hero-scheduled__bg" src="assets/thumbnail-fc-online.jpg" alt="FC 온라인 시즌 업데이트 라이브 예정">
           <div class="hero-scheduled__gradient" aria-hidden="true"></div>
-          <span class="live-card__countdown hero-scheduled__status">예정</span>
+          <span class="live-card__countdown hero-scheduled__status" hidden aria-hidden="true">예정</span>
           <div class="hero-scheduled__clock" aria-hidden="true">
             <svg class="icon icon--clock-hero"><use href="#icon-clock-hero"/></svg>
           </div>
@@ -241,7 +242,7 @@
             <article class="hero-roll__slide hero-roll__slide--scheduled">
           <img class="hero-scheduled__bg" src="assets/thumbnail-dungeon-fighter.jpg" alt="던전앤파이터 겨울 디렉터 라이브 예정">
           <div class="hero-scheduled__gradient" aria-hidden="true"></div>
-          <span class="live-card__countdown hero-scheduled__status">예정</span>
+          <span class="live-card__countdown hero-scheduled__status" hidden aria-hidden="true">예정</span>
           <div class="hero-scheduled__clock" aria-hidden="true">
             <svg class="icon icon--clock-hero"><use href="#icon-clock-hero"/></svg>
           </div>
@@ -273,7 +274,7 @@
           <div class="hero-scheduled" id="heroScheduled" hidden>
             <img class="hero-scheduled__bg" src="assets/thumbnail-dungeon-fighter.jpg" alt="">
             <div class="hero-scheduled__gradient" aria-hidden="true"></div>
-            <span class="live-card__countdown hero-scheduled__status">예정</span>
+            <span class="live-card__countdown hero-scheduled__status" hidden aria-hidden="true">예정</span>
             <div class="hero-scheduled__clock" aria-hidden="true">
               <svg class="icon icon--clock-hero"><use href="#icon-clock-hero"/></svg>
             </div>
@@ -300,6 +301,7 @@
               </div>
             </div>
           </div>
+        </section>
 
           <!-- Live Index Panel -->
           <aside class="live-index" id="liveIndex">
@@ -309,8 +311,11 @@
                 <img class="live-index__thumb" src="assets/thumbnail-maplestory.jpg" alt="메이플스토리">
               </div>
               <div class="live-index__details">
-                <span class="live-index__game live-index__game--live">메이플스토리</span>
-                <span class="live-badge live-badge--index">LIVE</span>
+                <div class="live-index__title-row">
+                  <span class="live-index__game">메이플스토리</span>
+                  <span class="live-badge live-badge--index">LIVE</span>
+                </div>
+                <span class="live-index__status">12,480명 시청 중</span>
               </div>
             </div>
             <div class="live-index__item live-index__item--scheduled" data-roll-index="1">
@@ -318,8 +323,11 @@
                 <img class="live-index__thumb" src="assets/thumbnail-fc-online.jpg" alt="FC 온라인">
               </div>
               <div class="live-index__details">
-                <span class="live-index__game">FC 온라인</span>
-                <span class="live-index__status">19:00 예정</span>
+                <div class="live-index__title-row">
+                  <span class="live-index__game">FC온라인</span>
+                  <span class="live-index__badge live-index__badge--scheduled">예정</span>
+                </div>
+                <span class="live-index__status" data-countdown="2026-07-31T19:00:00">09:50:22 남음</span>
               </div>
             </div>
             <div class="live-index__item live-index__item--scheduled" data-roll-index="2">
@@ -327,13 +335,16 @@
                 <img class="live-index__thumb" src="assets/thumbnail-dungeon-fighter.jpg" alt="던전앤파이터">
               </div>
               <div class="live-index__details">
-                <span class="live-index__game">던전앤파이터</span>
-                <span class="live-index__status">20:30 예정</span>
+                <div class="live-index__title-row">
+                  <span class="live-index__game">던전앤파이터</span>
+                  <span class="live-index__badge live-index__badge--scheduled">예정</span>
+                </div>
+                <span class="live-index__status">8/1 07:08 방송 예정</span>
               </div>
             </div>
             </div>
           </aside>
-        </section>
+        </div>
 
         <!-- Content Sections -->
         <div class="sections">
@@ -557,6 +568,6 @@
     </footer>
   </div>
 
-  <script src="js/main.js?v=19"></script>
+  <script src="js/main.js?v=25"></script>
 </body>
 </html>

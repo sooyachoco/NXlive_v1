@@ -38,6 +38,8 @@
   --color-border-light: #edeff2;
   --color-badge-neutral-bg: #f2f5f7;
   --color-badge-neutral-text: #9097a3;
+  --color-badge-scheduled-bg: #747a86;
+  --color-badge-scheduled-text: #ffffff;
   --color-badge-info-bg: #edf2ff;
   --color-thumb-placeholder: #0a0d0f;
   --color-toggle-track: #dce0e5;
@@ -117,6 +119,8 @@
   --color-border-light: #2a2f38;
   --color-badge-neutral-bg: #2a2f38;
   --color-badge-neutral-text: #9aa0ab;
+  --color-badge-scheduled-bg: #6b7280;
+  --color-badge-scheduled-text: #ffffff;
   --color-badge-info-bg: rgba(4, 80, 235, 0.18);
   --color-toggle-track: #3a404c;
   --color-toggle-thumb: #f0f2f5;
@@ -442,12 +446,31 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ===== Hero ===== */
-.hero {
+.hero-block {
   position: relative;
   width: calc(100% - (var(--sections-gutter-x) * 2));
   max-width: var(--hero-max-width);
   margin-top: 32px;
   margin-inline: auto;
+}
+
+.hero-block > .hero {
+  width: 100%;
+  max-width: none;
+  margin-top: 0;
+  margin-inline: 0;
+}
+
+.hero-block > .live-index {
+  position: absolute;
+  top: var(--live-index-inset-y);
+  right: var(--live-index-inset-x);
+  width: var(--live-index-width);
+  height: calc(100% - (var(--live-index-inset-y) * 2));
+  z-index: 10;
+}
+
+.hero {
   aspect-ratio: var(--hero-aspect-ratio);
   height: auto;
   min-height: var(--hero-min-height);
@@ -715,14 +738,8 @@ a { color: inherit; text-decoration: none; }
 
 /* ===== Live Index Panel ===== */
 .live-index {
-  position: absolute;
-  top: var(--live-index-inset-y);
-  right: var(--live-index-inset-x);
-  width: var(--live-index-width);
-  height: calc(100% - (var(--live-index-inset-y) * 2));
   background: transparent;
   padding: 0;
-  z-index: 10;
   overflow: visible;
   transition: height var(--transition), width var(--transition);
 }
@@ -772,6 +789,10 @@ a { color: inherit; text-decoration: none; }
   opacity: 0.8;
 }
 
+.live-index__item:last-child {
+  border-bottom: none;
+}
+
 .live-index__thumb-wrap {
   flex-shrink: 0;
   width: var(--live-index-thumb-size);
@@ -790,6 +811,15 @@ a { color: inherit; text-decoration: none; }
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: filter var(--transition);
+}
+
+.live-index__item:not(.live-index__item--active) .live-index__thumb {
+  filter: grayscale(100%);
+}
+
+.live-index__item--active .live-index__thumb {
+  filter: none;
 }
 
 .live-index__details {
@@ -804,51 +834,6 @@ a { color: inherit; text-decoration: none; }
   transition: max-height var(--transition), opacity var(--transition);
 }
 
-/* Hero가 줄어들면 패널도 함께 줄고, 텍스트는 숨겨 썸네일만 표시.
-   단, radius가 살아있는 직사각형 카드 형태(inset·전체 border-radius)는 그대로 유지 */
-@container hero (max-width: 1140px) or (max-height: 390px) {
-  .hero {
-    --live-index-width: calc(var(--live-index-thumb-size) + (var(--live-index-pad-x) * 2));
-    --live-index-gap-y: 3px;
-  }
-
-  .live-index__surface {
-    padding: var(--live-index-pad-x);
-  }
-
-  .live-index__details {
-    display: none;
-  }
-
-  .live-index__item,
-  .live-index__item--scheduled {
-    justify-content: center;
-    gap: 0;
-    min-height: calc(var(--live-index-thumb-size) + (var(--live-index-gap-y) * 2));
-    max-height: calc(var(--live-index-thumb-size) + (var(--live-index-gap-y) * 2));
-    padding: var(--live-index-gap-y) 0;
-    border-bottom: none;
-  }
-
-  .live-index__thumb-wrap--scheduled {
-    border: none;
-  }
-}
-
-@container hero (max-width: 900px) or (max-height: 420px) {
-  .hero {
-    --live-index-thumb-size: 56px;
-    --live-index-gap-y: 3px;
-  }
-}
-
-@container hero (max-width: 720px) or (max-height: 340px) {
-  .hero {
-    --live-index-thumb-size: 48px;
-    --live-index-gap-y: 3px;
-  }
-}
-
 .live-index__game {
   font-size: 15px;
   font-weight: 700;
@@ -857,7 +842,32 @@ a { color: inherit; text-decoration: none; }
 }
 
 .live-index__game--live {
-  color: #f02c16;
+  color: var(--color-text-ink);
+}
+
+.live-index__title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.live-index__badge--scheduled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 17px;
+  padding: 0;
+  border-radius: 4px;
+  background: var(--color-badge-scheduled-bg);
+  color: var(--color-badge-scheduled-text);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 9px;
+  white-space: nowrap;
 }
 
 .live-index__status {
@@ -865,6 +875,13 @@ a { color: inherit; text-decoration: none; }
   font-weight: 400;
   line-height: 18px;
   color: var(--color-text-muted);
+}
+
+.live-index__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .live-badge--index {
@@ -1183,9 +1200,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .live-card__countdown.hero-scheduled__status {
-  top: 40px;
-  left: 40px;
-  z-index: 3;
+  display: none !important;
 }
 
 /* ===== Hero: Scheduled ===== */
@@ -1774,41 +1789,162 @@ a { color: inherit; text-decoration: none; }
   color: var(--color-text-secondary);
 }
 
-/* ===== Responsive: Tablet ===== */
-/* container query 미지원/미적용 브라우저 fallback: 카드 형태(전체 radius) 유지, 텍스트만 숨김 */
-@media (max-width: 1480px) {
-  .hero {
-    --live-index-width: calc(var(--live-index-thumb-size) + (var(--live-index-pad-x) * 2));
-    --live-index-gap-y: 3px;
-  }
-
-  .hero .live-index__surface {
-    padding: var(--live-index-pad-x);
-  }
-
-  .hero .live-index__details {
-    display: none;
-  }
-
-  .hero .live-index__item,
-  .hero .live-index__item--scheduled {
-    justify-content: center;
-    gap: 0;
-    min-height: calc(var(--live-index-thumb-size) + (var(--live-index-gap-y) * 2));
-    max-height: calc(var(--live-index-thumb-size) + (var(--live-index-gap-y) * 2));
-    padding: var(--live-index-gap-y) 0;
-    border-bottom: none;
-  }
-
-  .hero .live-index__thumb-wrap--scheduled {
-    border: none;
-  }
-}
-
 @media (max-width: 1280px) {
   :root {
     --live-index-inset-y: 8px;
     --live-index-inset-x: 8px;
+  }
+}
+
+/* ===== Responsive: 패널을 히어로 아래 목록으로 전환 =====
+   중간의 썸네일 strip 단계 없이 1480px 이하에서 바로 목록 레이아웃으로 넘어간다. */
+@media (max-width: 1480px) {
+  .hero-block {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-block > .hero {
+    aspect-ratio: auto;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: hidden;
+    container-type: normal;
+    border-radius: 16px;
+  }
+
+  .hero-roll {
+    position: relative;
+    inset: auto;
+    flex-shrink: 0;
+    width: 100%;
+    height: 480px;
+  }
+
+  .hero-scheduled:not([hidden]) {
+    position: relative;
+    inset: auto;
+    flex-shrink: 0;
+    width: 100%;
+    height: 480px;
+  }
+
+  .hero-block > .live-index {
+    position: static;
+    top: auto;
+    right: auto;
+    width: auto;
+    height: auto;
+    margin: 10px 10px 0;
+    padding: 0;
+    align-self: stretch;
+  }
+
+  .hero-block .live-index__surface {
+    height: auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: none;
+    opacity: 1;
+    padding: 0 10px;
+    gap: 0;
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .hero-block .live-index__item,
+  .hero-block .live-index__item--scheduled {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 64px;
+    max-height: none;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
+    text-align: left;
+    overflow: visible;
+  }
+
+  .hero-block .live-index__item:last-child {
+    border-bottom: none;
+  }
+
+  .hero-block .live-index__details {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+  }
+
+  .hero-block .live-index__title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-block .live-index__game {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+  }
+
+  .hero-block .live-index__game--live {
+    color: var(--color-text-primary);
+  }
+
+  .hero-block .live-index__status {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+  }
+
+  .hero-block .live-index__item--active {
+    opacity: 1;
+  }
+
+  .hero-block .live-index__item:hover {
+    opacity: 0.85;
+  }
+
+  .hero-block .live-index__item--active:hover {
+    opacity: 1;
+  }
+
+  .hero-block .live-index__thumb-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: var(--color-surface-muted);
+    flex-shrink: 0;
+  }
+
+  .hero-block .live-index__thumb-wrap--scheduled {
+    border: none;
+  }
+
+  .hero-state--live .hero__content,
+  .hero-state--scheduled .hero__content {
+    right: 0;
+  }
+
+  .hero-state--live .hero-roll__slide .hero__play-btn,
+  .hero-state--live .hero-roll__slide--scheduled .hero-scheduled__clock,
+  .hero-state--scheduled .hero-scheduled__clock {
+    left: 50%;
   }
 }
 
@@ -1818,17 +1954,11 @@ a { color: inherit; text-decoration: none; }
     --sections-gutter-y: 32px;
   }
 
-  .hero {
-    aspect-ratio: auto;
-    height: 480px;
-    min-height: 0;
-    max-height: none;
-  }
-
   .hero__play-btn {
     width: 64px;
     height: 64px;
   }
+
   .sections { gap: 32px; }
   .footer { --footer-gutter: 24px; }
   .header__actions { padding: 0 24px; }
@@ -1880,8 +2010,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   .live-card__countdown.hero-scheduled__status {
-    top: 10px;
-    left: 10px;
+    display: none !important;
   }
 
   .hero-scheduled__clock .icon--clock-hero {
@@ -1917,9 +2046,30 @@ a { color: inherit; text-decoration: none; }
 
   .hero {
     aspect-ratio: auto;
-    height: 360px;
+    height: auto;
     min-height: 0;
     max-height: none;
+  }
+
+  .hero-roll,
+  .hero-scheduled:not([hidden]) {
+    height: 360px;
+  }
+
+  .hero-block > .live-index {
+    margin: 10px 10px 0;
+  }
+
+  .hero-block .live-index__item,
+  .hero-block .live-index__item--scheduled {
+    min-height: 60px;
+    padding: 9px 0;
+    gap: 8px;
+  }
+
+  .hero-block .live-index__thumb-wrap {
+    width: 44px;
+    height: 44px;
   }
 
   .hero__game {
