@@ -196,8 +196,9 @@
 
     triggers.forEach((trigger) => {
       const text = trigger.getAttribute('data-tooltip');
+      const placement = trigger.getAttribute('data-tooltip-placement') || 'right';
       const tooltip = document.createElement('div');
-      tooltip.className = 'tooltip';
+      tooltip.className = placement === 'bottom' ? 'tooltip tooltip--bottom' : 'tooltip';
       tooltip.innerHTML = `
         <svg class="tooltip__arrow icon" aria-hidden="true"><use href="#icon-tooltip-arrow"/></svg>
         <div class="tooltip__body">${text}</div>
@@ -213,13 +214,26 @@
 
         const tipRect = tooltip.getBoundingClientRect();
         const gap = 4;
-        let left = rect.right + gap;
-        let top = rect.top + (rect.height - tipRect.height) / 2;
+        let left;
+        let top;
 
-        if (left + tipRect.width > window.innerWidth - 8) {
-          left = rect.left - tipRect.width - gap;
+        if (placement === 'bottom') {
+          left = rect.left + (rect.width - tipRect.width) / 2;
+          top = rect.bottom + gap;
+
+          if (top + tipRect.height > window.innerHeight - 8) {
+            top = rect.top - tipRect.height - gap;
+          }
+        } else {
+          left = rect.right + gap;
+          top = rect.top + (rect.height - tipRect.height) / 2;
+
+          if (left + tipRect.width > window.innerWidth - 8) {
+            left = rect.left - tipRect.width - gap;
+          }
         }
 
+        left = Math.max(8, Math.min(left, window.innerWidth - tipRect.width - 8));
         top = Math.max(8, Math.min(top, window.innerHeight - tipRect.height - 8));
 
         tooltip.style.left = `${left}px`;
@@ -629,6 +643,77 @@
     });
   }
 
+  /* ===== 알림 신청 레이어 팝업 ===== */
+  function initNotifySubscribe() {
+    const overlay = document.getElementById('notifySubscribeOverlay');
+    if (!overlay) return;
+
+    const closeBtn = document.getElementById('notifySubscribeClose');
+    const cancelBtn = document.getElementById('notifySubscribeCancel');
+    const submitBtn = document.getElementById('notifySubscribeSubmit');
+    const consent = document.getElementById('notifySubscribeConsent');
+    const gameNameEls = overlay.querySelectorAll('[data-notify-game-name]');
+    let lastFocused = null;
+
+    function getGameName(btn) {
+      if (btn.dataset.notifyGame) return btn.dataset.notifyGame;
+
+      const scope = btn.closest('.hero-roll__slide, .hero-scheduled, .hero-state');
+      const heroGame = scope?.querySelector('.hero__game-name')?.textContent?.trim();
+      if (heroGame) return heroGame;
+
+      return document.querySelector('.channel-header__title')?.textContent?.trim() || '';
+    }
+
+    function syncSubmit() {
+      if (submitBtn) submitBtn.disabled = !consent?.checked;
+    }
+
+    function openModal(btn) {
+      lastFocused = btn;
+      const name = getGameName(btn);
+      gameNameEls.forEach((el) => { el.textContent = name; });
+      if (consent) consent.checked = false;
+      syncSubmit();
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+      closeBtn?.focus();
+      console.log('[A2S] notify_subscribe_open', { game: name });
+    }
+
+    function closeModal() {
+      if (overlay.hidden) return;
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+      lastFocused?.focus();
+      lastFocused = null;
+    }
+
+    document.querySelectorAll('.hero-scheduled__notify-btn, #channelNotifyBtn').forEach((btn) => {
+      btn.addEventListener('click', () => openModal(btn));
+    });
+
+    consent?.addEventListener('change', syncSubmit);
+    closeBtn?.addEventListener('click', closeModal);
+    cancelBtn?.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !overlay.hidden) closeModal();
+    });
+
+    submitBtn?.addEventListener('click', () => {
+      if (!consent?.checked) return;
+      console.log('[A2S] notify_subscribe_submit', {
+        game: gameNameEls[0]?.textContent?.trim(),
+      });
+      closeModal();
+    });
+  }
+
   /* ===== My Page Tabs ===== */
   function initMypageTabs() {
     const tabs = document.querySelectorAll('.mypage__tab');
@@ -949,6 +1034,7 @@
     safeInit('initLiveIndex', initLiveIndex);
     safeInit('initThumbPreviews', initThumbPreviews);
     safeInit('initChannelNotify', initChannelNotify);
+    safeInit('initNotifySubscribe', initNotifySubscribe);
     safeInit('initMypageTabs', initMypageTabs);
     safeInit('initMypagePrizeDetail', initMypagePrizeDetail);
     safeInit('initMypageFilter', initMypageFilter);
