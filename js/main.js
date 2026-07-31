@@ -700,10 +700,13 @@
   function initMypagePrizeDetail() {
     const listView = document.getElementById('winnerListView');
     const detail = document.getElementById('prizeDetail');
-    const backBtn = document.getElementById('prizeDetailBack');
+    const dialog = detail?.querySelector('.prize-detail__dialog');
+    const closeBtn = document.getElementById('prizeDetailClose');
     const copyBtn = document.getElementById('prizeDetailCopy');
     const copyMsg = document.getElementById('prizeDetailCopyMsg');
     if (!listView || !detail) return;
+
+    let lastFocused = null;
 
     let copyMsgTimer = null;
 
@@ -734,9 +737,12 @@
     };
 
     function closeDetail() {
+      if (detail.hidden) return;
       hideCopyMsg();
       detail.hidden = true;
-      listView.hidden = false;
+      document.body.style.overflow = '';
+      lastFocused?.focus();
+      lastFocused = null;
     }
 
     function openDetail(btn) {
@@ -758,17 +764,27 @@
           : '';
       }
 
-      listView.hidden = true;
+      lastFocused = btn;
       detail.hidden = false;
-      detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.body.style.overflow = 'hidden';
+      if (dialog) dialog.scrollTop = 0;
+      closeBtn?.focus();
     }
 
     document.querySelectorAll('[data-prize-open]').forEach((btn) => {
       btn.addEventListener('click', () => openDetail(btn));
     });
 
-    backBtn?.addEventListener('click', closeDetail);
+    closeBtn?.addEventListener('click', closeDetail);
     document.addEventListener('prize-detail-close', closeDetail);
+
+    detail.addEventListener('click', (event) => {
+      if (event.target === detail) closeDetail();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !detail.hidden) closeDetail();
+    });
 
     copyBtn?.addEventListener('click', async () => {
       const code = fields.coupon?.textContent?.trim();

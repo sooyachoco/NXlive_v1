@@ -7,7 +7,7 @@
   <title>이벤트 참여 내역 - NEXON LIVE</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=29">
+  <link rel="stylesheet" href="css/style.css?v=45">
 </head>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
@@ -318,17 +318,19 @@
             </div>
 
             <div class="prize-detail" id="prizeDetail" hidden>
-              <button type="button" class="prize-detail__back" id="prizeDetailBack">
-                <svg class="icon icon--chevron-left" aria-hidden="true"><use href="#icon-chevron-left"/></svg>
-                당첨 현황 목록
-              </button>
+              <div class="prize-detail__dialog" role="dialog" aria-modal="true" aria-labelledby="prizeDetailEvent">
               <div class="prize-detail__card">
                 <div class="prize-detail__header">
                   <div class="prize-detail__game">
                     <span class="prize-detail__icon" id="prizeDetailIcon">F</span>
                     <span class="prize-detail__game-name" id="prizeDetailGame">FC온라인</span>
                   </div>
-                  <span class="prize-detail__date" id="prizeDetailDate">2026.05.30</span>
+                  <div class="prize-detail__header-right">
+                    <span class="prize-detail__date" id="prizeDetailDate">2026.05.30</span>
+                    <button type="button" class="prize-detail__close" id="prizeDetailClose" aria-label="닫기">
+                      <svg class="icon icon--close" aria-hidden="true"><use href="#icon-close"/></svg>
+                    </button>
+                  </div>
                 </div>
                 <div class="prize-detail__body">
                   <div class="prize-detail__live">
@@ -364,6 +366,7 @@
                   <li>쿠폰번호는 해당 게임 계정에서 등록·사용할 수 있습니다.</li>
                   <li>쿠폰 유효기간 내 미등록 시 자동 소멸됩니다.</li>
                 </ul>
+              </div>
               </div>
             </div>
           </section>
@@ -698,6 +701,6 @@
     </div>
   </div>
 
-  <script src="js/main.js?v=24"></script>
+  <script src="js/main.js?v=26"></script>
 </body>
 </html>
