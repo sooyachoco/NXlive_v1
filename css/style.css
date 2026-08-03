@@ -2315,6 +2315,334 @@ a { color: inherit; text-decoration: none; }
   gap: 44px;
 }
 
+/* Channel live feature — Hero-style primary and upcoming broadcasts */
+.channel-live-section {
+  width: 100%;
+  max-width: 1080px;
+}
+
+.channel-live-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(280px, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.channel-live-feature__upcoming {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  min-width: 0;
+}
+
+.channel-live-card {
+  position: relative;
+  display: block;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--color-thumb-placeholder);
+  color: #fff;
+  text-decoration: none;
+  isolation: isolate;
+  box-shadow: 0 1px 2px rgba(13, 20, 33, 0.08);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.channel-live-card--primary {
+  aspect-ratio: 16 / 9;
+}
+
+.channel-live-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(13, 20, 33, 0.18);
+}
+
+.channel-live-card:focus-visible {
+  outline: 3px solid var(--color-nav-active-text);
+  outline-offset: 3px;
+}
+
+.channel-live-card__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.channel-live-card--upcoming .channel-live-card__media {
+  filter: grayscale(62%) saturate(0.55) brightness(0.88);
+}
+
+.channel-live-card:hover .channel-live-card__media {
+  transform: scale(1.025);
+}
+
+.channel-live-card__gradient {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(10, 13, 18, 0.04) 24%, rgba(16, 19, 24, 0.38) 58%, rgba(10, 12, 16, 0.94) 100%),
+    linear-gradient(90deg, rgba(10, 12, 16, 0.18), transparent 58%);
+  pointer-events: none;
+}
+
+.channel-live-card__live-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 0 13px;
+  border: 4px solid rgba(255, 255, 255, 0.55);
+  border-radius: 12px;
+  background: #f04444;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  box-shadow: 0 3px 10px rgba(194, 22, 22, 0.24);
+}
+
+.channel-live-card__live-badge > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.channel-live-card__schedule {
+  position: absolute;
+  top: 13px;
+  left: 14px;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #126afb;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+  backdrop-filter: blur(4px);
+}
+
+.channel-live-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: #252a32;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
+  transform: translate(-50%, -50%);
+  transition: transform var(--transition), background var(--transition);
+}
+
+.channel-live-card:hover .channel-live-card__play {
+  background: #fff;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.channel-live-card__play .icon--play {
+  width: 17px;
+  height: 20px;
+  margin-left: 3px;
+}
+
+.channel-live-card__play--small {
+  width: 36px;
+  height: 36px;
+}
+
+.channel-live-card__play--small .icon--play {
+  width: 11px;
+  height: 14px;
+  margin-left: 2px;
+}
+
+.channel-live-card__content {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 24px;
+}
+
+.channel-live-card--upcoming .channel-live-card__content {
+  gap: 5px;
+  padding: 14px;
+}
+
+.channel-live-card__title {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.35px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.channel-live-card--upcoming .channel-live-card__title {
+  font-size: 16px;
+  letter-spacing: -0.2px;
+}
+
+.channel-live-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.channel-live-card__live-dot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #f04444;
+  box-shadow: 0 0 0 3px rgba(240, 68, 68, 0.18);
+}
+
+.channel-live-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.channel-live-card__tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 17px;
+  backdrop-filter: blur(5px);
+}
+
+.channel-live-card--upcoming .channel-live-card__tag {
+  min-height: 21px;
+  padding: 2px 9px;
+  font-size: 10px;
+  line-height: 17px;
+}
+
+.channel-live-card__tag--ox {
+  background: var(--color-hero-badge-ox-bg);
+}
+
+.channel-live-card__tag--choice {
+  background: var(--color-hero-badge-choice-bg);
+}
+
+.channel-live-card__tag--vote {
+  background: var(--color-hero-badge-vote-bg);
+}
+
+.channel-live-card__tag--shopping {
+  background: var(--color-hero-badge-shopping-bg);
+}
+
+.channel-live-card__tag--drops {
+  background: var(--color-hero-badge-drops-bg);
+  color: var(--color-hero-badge-dark-text);
+}
+
+.channel-live-card__tag--reward {
+  background: #13b967;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .channel-live-feature {
+    grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr);
+    gap: 12px;
+  }
+
+  .channel-live-feature__upcoming {
+    gap: 12px;
+  }
+
+  .channel-live-card__content {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .channel-live-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .channel-live-feature__upcoming {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .channel-live-card--upcoming {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 540px) {
+  .channel-live-feature__upcoming {
+    grid-template-columns: 1fr;
+  }
+
+  .channel-live-card__live-badge {
+    top: 12px;
+    left: 12px;
+    min-height: 30px;
+    padding: 0 10px;
+    border-width: 3px;
+    font-size: 11px;
+  }
+
+  .channel-live-card__play {
+    width: 46px;
+    height: 46px;
+  }
+
+  .channel-live-card__title {
+    font-size: 18px;
+  }
+
+  .channel-live-card__meta {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .channel-live-card,
+  .channel-live-card__media,
+  .channel-live-card__play {
+    transition: none;
+  }
+}
+
 /* Channel header — Figma 173:938 */
 .channel-header {
   position: relative;
