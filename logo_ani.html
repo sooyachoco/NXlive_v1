@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>로고 애니메이션 비교 — F / K / C</title>
+  <title>로고 애니메이션 비교 — F / C / D</title>
   <style>
     :root {
       --bg: #f4f5f7;
@@ -181,45 +181,6 @@
       to { opacity: 1; clip-path: inset(0 0 0 0); }
     }
 
-    /* ===== K Roll In ===== */
-    .anim-k .icon--logo-mark {
-      transform-origin: 50% 50%;
-      transition: transform 0.35s ease;
-    }
-
-    .anim-k .icon--logo-text {
-      transition: transform 0.35s ease;
-    }
-
-    .anim-k.is-playing .icon--logo-mark {
-      animation: k-mark-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-    }
-
-    .anim-k.is-playing .icon--logo-text {
-      animation: text-soft-in 0.4s ease 0.28s backwards;
-    }
-
-    .anim-k:hover .icon--logo-mark {
-      animation: k-mark-roll 0.55s ease;
-    }
-
-    .anim-k:hover .icon--logo-text {
-      transform: translateX(2px);
-    }
-
-    @keyframes k-mark-in {
-      0% { opacity: 0; transform: translateX(-22px) rotate(-220deg) scale(0.6); }
-      70% { opacity: 1; transform: translateX(3px) rotate(12deg) scale(1.06); }
-      100% { opacity: 1; transform: translateX(0) rotate(0) scale(1); }
-    }
-
-    @keyframes k-mark-roll {
-      0% { transform: rotate(0); }
-      40% { transform: rotate(28deg) translateX(2px); }
-      70% { transform: rotate(-12deg) translateX(-1px); }
-      100% { transform: rotate(0); }
-    }
-
     /* ===== C Soft Glow + Letter Bounce ===== */
     .anim-c .icon--logo-mark {
       transform-origin: 50% 50%;
@@ -390,7 +351,7 @@
   </svg>
 
   <h1>로고 애니메이션 비교</h1>
-  <p class="lead">후보 4종입니다. “다시 재생”과 호버로 비교해 보세요.</p>
+  <p class="lead">후보 3종입니다. “다시 재생”과 호버로 비교해 보세요.</p>
 
   <div class="grid">
     <article class="card" data-anim="f">
@@ -409,24 +370,6 @@
         </a>
       </div>
       <p class="hint">등장: 스핀 + 정돈 · 호버: 고개 끄덕</p>
-    </article>
-
-    <article class="card" data-anim="k">
-      <div class="card__head">
-        <div>
-          <span class="card__badge">K</span>
-          <h2 class="card__title" style="display:inline; margin-left:8px;">Roll In</h2>
-          <p class="card__desc">왼쪽에서 데굴데굴 굴러 들어옵니다. 호버하면 살짝 굴렀다가 멈춥니다.</p>
-        </div>
-        <button type="button" class="replay" data-replay>다시 재생</button>
-      </div>
-      <div class="stage">
-        <a href="#" class="logo anim-k is-playing" aria-label="NEXON LIVE">
-          <svg class="icon icon--logo-mark" aria-hidden="true"><use href="#icon-logo-mark"/></svg>
-          <svg class="icon icon--logo-text" aria-hidden="true"><use href="#icon-logo-text"/></svg>
-        </a>
-      </div>
-      <p class="hint">등장: 굴러오기 · 호버: 살짝 롤</p>
     </article>
 
     <article class="card" data-anim="c">
