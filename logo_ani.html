@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로고 애니메이션 비교 — F / K / C</title>
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --surface: #ffffff;
+      --text: #17191c;
+      --muted: #747a86;
+      --border: #e8ebf2;
+      --accent: #0450eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 40px 24px 80px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .lead {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card__badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #edf2ff;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .card__title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .card__desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .replay {
+      flex-shrink: 0;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .replay:hover { background: #f2f5f7; }
+
+    .stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      border-radius: 12px;
+      background: #fafafc;
+      border: 1px dashed #dce0e5;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 22px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .icon { display: block; flex-shrink: 0; }
+    .icon--logo-mark { width: 19px; height: 22px; }
+    .icon--logo-text { width: 131px; height: 12px; color: currentColor; }
+
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @keyframes text-soft-in {
+      from { opacity: 0; transform: translateX(-4px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ===== F Nod Spin ===== */
+    .anim-f .icon--logo-mark {
+      transform-origin: 50% 55%;
+      transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1);
+    }
+
+    .anim-f .icon--logo-text {
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .anim-f.is-playing .icon--logo-mark {
+      animation: f-mark-in 0.8s cubic-bezier(0.34, 1.25, 0.64, 1) backwards;
+    }
+
+    .anim-f.is-playing .icon--logo-text {
+      animation: f-text-in 0.4s ease 0.3s backwards;
+    }
+
+    .anim-f:hover .icon--logo-mark {
+      animation: f-mark-nod 0.55s ease;
+    }
+
+    .anim-f:hover .icon--logo-text {
+      transform: translateX(2px);
+    }
+
+    @keyframes f-mark-in {
+      0% { opacity: 0; transform: scale(0.4) rotate(-180deg); }
+      55% { opacity: 1; transform: scale(1.1) rotate(18deg); }
+      72% { transform: scale(0.96) rotate(-8deg); }
+      88% { transform: scale(1.04) rotate(4deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    @keyframes f-mark-nod {
+      0% { transform: rotate(0) translateY(0); }
+      25% { transform: rotate(-14deg) translateY(1px); }
+      50% { transform: rotate(10deg) translateY(-1px); }
+      75% { transform: rotate(-5deg) translateY(0); }
+      100% { transform: rotate(0) translateY(0); }
+    }
+
+    @keyframes f-text-in {
+      from { opacity: 0; clip-path: inset(0 100% 0 0); }
+      to { opacity: 1; clip-path: inset(0 0 0 0); }
+    }
+
+    /* ===== K Roll In ===== */
+    .anim-k .icon--logo-mark {
+      transform-origin: 50% 50%;
+      transition: transform 0.35s ease;
+    }
+
+    .anim-k .icon--logo-text {
+      transition: transform 0.35s ease;
+    }
+
+    .anim-k.is-playing .icon--logo-mark {
+      animation: k-mark-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
+
+    .anim-k.is-playing .icon--logo-text {
+      animation: text-soft-in 0.4s ease 0.28s backwards;
+    }
+
+    .anim-k:hover .icon--logo-mark {
+      animation: k-mark-roll 0.55s ease;
+    }
+
+    .anim-k:hover .icon--logo-text {
+      transform: translateX(2px);
+    }
+
+    @keyframes k-mark-in {
+      0% { opacity: 0; transform: translateX(-22px) rotate(-220deg) scale(0.6); }
+      70% { opacity: 1; transform: translateX(3px) rotate(12deg) scale(1.06); }
+      100% { opacity: 1; transform: translateX(0) rotate(0) scale(1); }
+    }
+
+    @keyframes k-mark-roll {
+      0% { transform: rotate(0); }
+      40% { transform: rotate(28deg) translateX(2px); }
+      70% { transform: rotate(-12deg) translateX(-1px); }
+      100% { transform: rotate(0); }
+    }
+
+    /* ===== C Soft Glow + Letter Bounce ===== */
+    .anim-c .icon--logo-mark {
+      transform-origin: 50% 50%;
+      transition: transform 0.3s ease;
+    }
+
+    .anim-c .logo-text {
+      display: inline-flex;
+      align-items: flex-end;
+      height: 12px;
+      overflow: visible;
+    }
+
+    .anim-c .logo-letter {
+      display: block;
+      flex-shrink: 0;
+      height: 12px;
+      transform-origin: 50% 100%;
+      will-change: transform;
+    }
+
+    .anim-c .logo-letter svg {
+      display: block;
+      height: 12px;
+      width: auto;
+    }
+
+    .anim-c.is-playing .icon--logo-mark {
+      animation:
+        c-mark-in 0.45s ease backwards,
+        c-mark-glow 1.8s ease-in-out 0.45s infinite;
+    }
+
+    .anim-c:hover .icon--logo-mark {
+      transform: scale(1.04);
+      animation:
+        c-mark-in 0.45s ease backwards,
+        c-mark-glow 1.2s ease-in-out infinite;
+    }
+
+    @keyframes c-mark-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes c-mark-glow {
+      0%, 100% {
+        filter: drop-shadow(0 0 0 transparent);
+      }
+      40% {
+        filter:
+          drop-shadow(0 0 3px rgba(38, 189, 255, 0.7))
+          drop-shadow(0 0 10px rgba(38, 189, 255, 0.35));
+      }
+      70% {
+        filter:
+          drop-shadow(0 0 6px rgba(38, 189, 255, 0.2))
+          drop-shadow(0 0 16px rgba(23, 255, 129, 0.12));
+      }
+    }
+
+    /* ===== D Dust Dissolve (Infinity War snap) ===== */
+    @property --dust-edge {
+      syntax: '<percentage>';
+      inherits: false;
+      initial-value: 100%;
+    }
+
+    .anim-d {
+      position: relative;
+    }
+
+    .anim-d .logo-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      --dust-edge: 100%;
+    }
+
+    .anim-d .icon--logo-mark {
+      transform-origin: 50% 50%;
+    }
+
+    /* is-dusting 해제 시 재등장하지 않도록, 진입 전용 클래스로만 재생 */
+    .anim-d.is-entering .icon--logo-mark {
+      animation: d-mark-in 0.45s ease backwards;
+    }
+
+    .anim-d.is-entering .icon--logo-text {
+      animation: text-soft-in 0.4s ease 0.1s backwards;
+    }
+
+    /* 부드러운 재 경계: 입자 전선과 맞춘 좁은 페더 */
+    .anim-d.is-dusting .logo-solid {
+      pointer-events: none;
+      will-change: filter, opacity;
+      -webkit-mask-image: linear-gradient(
+        to right,
+        #000 0%,
+        #000 max(0%, calc(var(--dust-edge) - 10%)),
+        transparent var(--dust-edge),
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        #000 0%,
+        #000 max(0%, calc(var(--dust-edge) - 10%)),
+        transparent var(--dust-edge),
+        transparent 100%
+      );
+    }
+
+    .anim-d .logo-dust {
+      position: absolute;
+      inset: -40px -24px -48px -24px;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .anim-d .dust-bit {
+      position: absolute;
+      border-radius: 40%;
+      opacity: 0;
+      will-change: transform, opacity, filter;
+      filter: blur(0.2px);
+    }
+
+    .stage:has(.anim-d) {
+      overflow: visible;
+    }
+
+    .card:has(.anim-d) {
+      overflow: visible;
+    }
+
+    @keyframes d-mark-in {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <linearGradient id="logo-grad-1" x1="4.4988" y1="5.14225" x2="13.8961" y2="10.4865" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#26BDFF"/><stop offset="0.909675" stop-color="#17FF81"/>
+      </linearGradient>
+      <linearGradient id="logo-grad-2" x1="9.86186" y1="13.7502" x2="18.4052" y2="8.72686" gradientUnits="userSpaceOnUse">
+        <stop offset="0.2" stop-color="#26BDFF"/><stop offset="0.95357" stop-color="#17FF81"/>
+      </linearGradient>
+    </defs>
+    <symbol id="icon-logo-mark" viewBox="0 0 19.2335 22">
+      <path d="M9.35648 10.9994L14.6441 7.94684L5.28711 2.54297V8.64993L9.35648 10.9994Z" fill="url(#logo-grad-1)"/>
+      <path d="M9.35704 10.9996L5.28766 13.349V2.54318L1.04591 0.0949685C0.581062 -0.174257 0 0.160822 0 0.699273V21.3018C0 21.8383 0.581062 22.1734 1.04591 21.9061L14.6447 14.054L9.35704 11.0015V10.9996Z" fill="#2981FF"/>
+      <path d="M14.6431 14.0523L18.8849 11.6021C19.3497 11.3329 19.3497 10.6627 18.8849 10.3935L14.6431 7.94336L9.35547 10.9959L14.6431 14.0484V14.0523Z" fill="url(#logo-grad-2)"/>
+    </symbol>
+    <symbol id="icon-logo-text" viewBox="0 0 130.84 11.66">
+      <path d="M87.9054 0H84.7852V11.66H95.9227V9.19038H87.9054V0Z" fill="currentColor"/>
+      <path d="M113.558 0L110.725 9.19038H109.461L106.714 0H103.523L107.01 11.66H113.264L116.75 0H113.558Z" fill="currentColor"/>
+      <path d="M101.181 0H98.0605V11.66H101.181V0Z" fill="currentColor"/>
+      <path d="M28.1395 9.19271H19.3409V6.95633H28.1395V4.47043H19.3409V2.47424H28.1395V0H16.2207V11.66H28.1395V9.19271Z" fill="currentColor"/>
+      <path d="M130.84 9.19271H122.042V6.95633H130.84V4.47043H122.042V2.47424H130.84V0H118.924V11.66H130.84V9.19271Z" fill="currentColor"/>
+      <path d="M66.0437 4.61035L73.4314 11.66H75.7844V0H72.6642V7.05194L65.2764 0H62.9258V11.66H66.0437V4.61035Z" fill="currentColor"/>
+      <path d="M59.5641 0H46.7031V11.66H59.5641V0ZM56.4485 9.19271H49.8257V2.47191H56.4485V9.19038V9.19271Z" fill="currentColor"/>
+      <path d="M3.1202 4.61035L10.5103 11.66H12.8609V0H9.74306V7.05194L2.35298 0H0V11.66H3.1202V4.61035Z" fill="currentColor"/>
+      <path d="M37.4268 8.05936L40.6217 11.66H44.5604L39.3974 5.83464L44.5744 0H40.6263L37.4245 3.61459L34.2204 0H30.2793L35.4517 5.83464L30.2886 11.66H34.232L37.4245 8.05936H37.4268Z" fill="currentColor"/>
+    </symbol>
+  </svg>
+
+  <h1>로고 애니메이션 비교</h1>
+  <p class="lead">후보 4종입니다. “다시 재생”과 호버로 비교해 보세요.</p>
+
+  <div class="grid">
+    <article class="card" data-anim="f">
+      <div class="card__head">
+        <div>
+          <span class="card__badge">F</span>
+          <h2 class="card__title" style="display:inline; margin-left:8px;">Nod Spin</h2>
+          <p class="card__desc">심볼이 한 바퀴 돌며 등장한 뒤 살짝 고개 숙이듯 정돈됩니다. 호버 시 짧은 인사 노드.</p>
+        </div>
+        <button type="button" class="replay" data-replay>다시 재생</button>
+      </div>
+      <div class="stage">
+        <a href="#" class="logo anim-f is-playing" aria-label="NEXON LIVE">
+          <svg class="icon icon--logo-mark" aria-hidden="true"><use href="#icon-logo-mark"/></svg>
+          <svg class="icon icon--logo-text" aria-hidden="true"><use href="#icon-logo-text"/></svg>
+        </a>
+      </div>
+      <p class="hint">등장: 스핀 + 정돈 · 호버: 고개 끄덕</p>
+    </article>
+
+    <article class="card" data-anim="k">
+      <div class="card__head">
+        <div>
+          <span class="card__badge">K</span>
+          <h2 class="card__title" style="display:inline; margin-left:8px;">Roll In</h2>
+          <p class="card__desc">왼쪽에서 데굴데굴 굴러 들어옵니다. 호버하면 살짝 굴렀다가 멈춥니다.</p>
+        </div>
+        <button type="button" class="replay" data-replay>다시 재생</button>
+      </div>
+      <div class="stage">
+        <a href="#" class="logo anim-k is-playing" aria-label="NEXON LIVE">
+          <svg class="icon icon--logo-mark" aria-hidden="true"><use href="#icon-logo-mark"/></svg>
+          <svg class="icon icon--logo-text" aria-hidden="true"><use href="#icon-logo-text"/></svg>
+        </a>
+      </div>
+      <p class="hint">등장: 굴러오기 · 호버: 살짝 롤</p>
+    </article>
+
+    <article class="card" data-anim="c">
+      <div class="card__head">
+        <div>
+          <span class="card__badge">C</span>
+          <h2 class="card__title" style="display:inline; margin-left:8px;">Glow Bounce</h2>
+          <p class="card__desc">심볼은 글로우가 퍼졌다 사라지는 루프, 글자는 왼쪽부터 순차적으로 살짝 뛰어올랐다 내려옵니다.</p>
+        </div>
+        <button type="button" class="replay" data-replay>다시 재생</button>
+      </div>
+      <div class="stage">
+        <a href="#" class="logo anim-c is-playing" aria-label="NEXON LIVE">
+          <svg class="icon icon--logo-mark" aria-hidden="true"><use href="#icon-logo-mark"/></svg>
+          <span class="logo-text" aria-hidden="true">
+            <span class="logo-letter"><svg viewBox="0 0 12.861 11.66"><path d="M3.1202 4.61035L10.5103 11.66H12.8609V0H9.74306V7.05194L2.35298 0H0V11.66H3.1202V4.61035Z" fill="currentColor"/></svg></span>
+            <span class="logo-letter" style="margin-left:3.36px"><svg viewBox="16.2207 0 11.9188 11.66"><path d="M28.1395 9.19271H19.3409V6.95633H28.1395V4.47043H19.3409V2.47424H28.1395V0H16.2207V11.66H28.1395V9.19271Z" fill="currentColor"/></svg></span>
+            <span class="logo-letter" style="margin-left:2.14px"><svg viewBox="30.2793 0 14.2811 11.66"><path d="M37.4268 8.05936L40.6217 11.66H44.5604L39.3974 5.83464L44.5744 0H40.6263L37.4245 3.61459L34.2204 0H30.2793L35.4517 5.83464L30.2886 11.66H34.232L37.4245 8.05936H37.4268Z" fill="currentColor"/></svg></span>
+            <span class="logo-letter" style="margin-left:2.14px"><svg viewBox="46.7031 0 12.861 11.66"><path d="M59.5641 0H46.7031V11.66H59.5641V0ZM56.4485 9.19271H49.8257V2.47191H56.4485V9.19038V9.19271Z" fill="currentColor"/></svg></span>
+            <span class="logo-letter" style="margin-left:3.36px"><svg viewBox="62.9258 0 12.8586 11.66"><path d="M66.0437 4.61035L73.4314 11.66H75.7844V0H72.6642V7.05194L65.2764 0H62.9258V11.66H66.0437V4.61035Z" fill="currentColor"/></svg></span>
+            <span class="logo-letter" style="margin-left:8.9998px"><svg viewBox="84.7852 0 11.1375 11.66"><path d="M87.9054 0H84.7852V11.66H95.9227V9.19038H87.9054V0Z" fill="currentColor"/></svg></span>
+            <span class="logo-letter" style="margin-left:2.1378px"><svg viewBox="98.0605 0 3.1205 11.66"><path d="M101.181 0H98.0605V11.66H101.181V0Z" fill="currentColor"/></svg></span>
+            <span class="logo-letter" style="margin-left:2.3415px"><svg viewBox="103.523 0 13.227 11.66"><path d="M113.558 0L110.725 9.19038H109.461L106.714 0H103.523L107.01 11.66H113.264L116.75 0H113.558Z" fill="currentColor"/></svg></span>
+            <span class="logo-letter" style="margin-left:2.174px"><svg viewBox="118.924 0 11.916 11.66"><path d="M130.84 9.19271H122.042V6.95633H130.84V4.47043H122.042V2.47424H130.84V0H118.924V11.66H130.84V9.19271Z" fill="currentColor"/></svg></span>
+          </span>
+        </a>
+      </div>
+      <p class="hint">심볼: 글로우 루프 · 글자: 순차 바운스(호버 포함)</p>
+    </article>
+
+    <article class="card" data-anim="d">
+      <div class="card__head">
+        <div>
+          <span class="card__badge">D</span>
+          <h2 class="card__title" style="display:inline; margin-left:8px;">Thanos Fingersnap</h2>
+          <p class="card__desc">인피니티 워 스냅처럼, 오른쪽부터 재로 부스러지며 위로 천천히 흩어집니다. 마우스를 떼면 다시 모입니다.</p>
+        </div>
+        <button type="button" class="replay" data-replay>다시 재생</button>
+      </div>
+      <div class="stage">
+        <a href="#" class="logo anim-d is-playing is-entering" aria-label="NEXON LIVE">
+          <span class="logo-dust" aria-hidden="true"></span>
+          <span class="logo-solid">
+            <svg class="icon icon--logo-mark" aria-hidden="true"><use href="#icon-logo-mark"/></svg>
+            <svg class="icon icon--logo-text" aria-hidden="true"><use href="#icon-logo-text"/></svg>
+          </span>
+        </a>
+      </div>
+      <p class="hint">등장: 소프트 페이드 · 호버: 우측부터 재처럼 위로 흩어짐</p>
+    </article>
+  </div>
+
+  <script>
+    function bounceLogoLetters(logo, startDelay = 0) {
+      const letters = logo.querySelectorAll('.logo-letter');
+      letters.forEach((letter, i) => {
+        letter.getAnimations().forEach((anim) => anim.cancel());
+        letter.animate(
+          [
+            { transform: 'translateY(0px)' },
+            { transform: 'translateY(-4px)', offset: 0.4 },
+            { transform: 'translateY(0px)' },
+          ],
+          {
+            duration: 420,
+            delay: startDelay + i * 40,
+            easing: 'cubic-bezier(0.34, 1.4, 0.64, 1)',
+            fill: 'both',
+          }
+        );
+      });
+    }
+
+    function clearDust(logo, { keepHidden = false } = {}) {
+      const dust = logo.querySelector('.logo-dust');
+      const solid = logo.querySelector('.logo-solid');
+      if (dust) dust.innerHTML = '';
+      logo.classList.remove('is-dusting');
+      if (solid) {
+        solid.getAnimations().forEach((anim) => anim.cancel());
+        solid.style.filter = '';
+        solid.style.clipPath = '';
+        if (keepHidden) {
+          // 복원 직전: 한 프레임이라도 로고가 비치지 않게 유지
+          solid.style.opacity = '0';
+          solid.style.visibility = 'hidden';
+          solid.style.setProperty('--dust-edge', '0%');
+        } else {
+          solid.style.opacity = '';
+          solid.style.visibility = '';
+          solid.style.setProperty('--dust-edge', '100%');
+        }
+      }
+    }
+
+    function commitDustGone(solid) {
+      solid.getAnimations().forEach((anim) => anim.cancel());
+      solid.style.opacity = '0';
+      solid.style.visibility = 'hidden';
+      solid.style.filter = 'grayscale(0.85) brightness(1.12)';
+      solid.style.setProperty('--dust-edge', '0%');
+    }
+
+    function dustDissolve(logo) {
+      const solid = logo.querySelector('.logo-solid');
+      const dust = logo.querySelector('.logo-dust');
+      if (!solid || !dust) return;
+
+      const width = solid.offsetWidth || 160;
+      const height = solid.offsetHeight || 22;
+      const padX = 24;
+      const padY = 40;
+
+      // 입자만 비우고, is-dusting은 유지한 채 재시작 (등장 애니 재트리거 방지)
+      dust.innerHTML = '';
+      solid.getAnimations().forEach((anim) => anim.cancel());
+      solid.querySelectorAll('.icon').forEach((icon) => {
+        icon.getAnimations().forEach((anim) => anim.cancel());
+      });
+
+      logo.classList.add('is-dusting');
+      solid.style.opacity = '1';
+      solid.style.visibility = 'visible';
+      solid.style.setProperty('--dust-edge', '100%');
+
+      const wipeMs = 2200;
+      // 단일 애니로 마스크·옵시티를 끝내 충돌/플래시 방지
+      const wipe = solid.animate(
+        [
+          {
+            ['--dust-edge']: '100%',
+            filter: 'grayscale(0) brightness(1)',
+            opacity: 1,
+          },
+          {
+            ['--dust-edge']: '0%',
+            filter: 'grayscale(0.85) brightness(1.12)',
+            opacity: 1,
+            offset: 0.94,
+          },
+          {
+            ['--dust-edge']: '0%',
+            filter: 'grayscale(0.85) brightness(1.12)',
+            opacity: 0,
+          },
+        ],
+        {
+          duration: wipeMs + 160,
+          easing: 'linear',
+          fill: 'forwards',
+        }
+      );
+      wipe.finished.then(() => {
+        if (!logo.classList.contains('is-dusting')) return;
+        commitDustGone(solid);
+      }).catch(() => {});
+
+      const ashColors = [
+        '#2a2c30', '#3d4148', '#5a5f69', '#6e7480', '#8a909c',
+        '#4a5568', '#3a4a5c', '#2d3a48', '#556070',
+        '#3b5a7a', '#2f4f6a', '#456078',
+      ];
+
+      const cols = 56;
+      const rows = 12;
+
+      for (let r = 0; r < rows; r += 1) {
+        for (let c = 0; c < cols; c += 1) {
+          if (Math.random() < 0.22) continue;
+
+          const bit = document.createElement('span');
+          bit.className = 'dust-bit';
+          const xRatio = c / (cols - 1);
+          const yRatio = r / (rows - 1);
+          const x = xRatio * width + (Math.random() - 0.5) * 1.6;
+          const y = yRatio * height + (Math.random() - 0.5) * 1.2;
+
+          const w = 0.5 + Math.random() * 1.35;
+          const h = 0.4 + Math.random() * 1.1;
+          const color = ashColors[Math.floor(Math.random() * ashColors.length)];
+
+          bit.style.width = `${w}px`;
+          bit.style.height = `${h}px`;
+          bit.style.left = `${padX + x}px`;
+          bit.style.top = `${padY + y}px`;
+          bit.style.background = color;
+          bit.style.borderRadius = `${30 + Math.random() * 50}%`;
+          dust.appendChild(bit);
+
+          const dx = (Math.random() - 0.5) * 28 + (Math.random() - 0.5) * 10;
+          const dy = -(18 + Math.random() * 42 + (1 - yRatio) * 8);
+          const rot = (Math.random() - 0.5) * 160;
+          // 마스크 edge와 동일: delay = (1 - x) * wipeMs
+          // 살짝 앞서 떨어져 글자가 재로 바뀌는 느낌 (40ms)
+          const delay = Math.max(0, (1 - xRatio) * wipeMs - 40 + (Math.random() - 0.5) * 70);
+
+          bit.animate(
+            [
+              {
+                transform: 'translate(0, 0) scale(1) rotate(0deg)',
+                opacity: 0,
+                filter: 'blur(0px)',
+              },
+              {
+                transform: 'translate(0, -1px) scale(1.05) rotate(0deg)',
+                opacity: 0.9,
+                filter: 'blur(0px)',
+                offset: 0.06,
+              },
+              {
+                transform: `translate(${dx * 0.45}px, ${dy * 0.45}px) scale(0.85) rotate(${rot * 0.4}deg)`,
+                opacity: 0.55,
+                filter: 'blur(0.3px)',
+                offset: 0.55,
+              },
+              {
+                transform: `translate(${dx}px, ${dy}px) scale(0.25) rotate(${rot}deg)`,
+                opacity: 0,
+                filter: 'blur(0.8px)',
+              },
+            ],
+            {
+              duration: 1600 + Math.random() * 900,
+              delay,
+              easing: 'cubic-bezier(0.2, 0.45, 0.25, 1)',
+              fill: 'forwards',
+            }
+          );
+        }
+      }
+    }
+
+    function dustRestore(logo) {
+      const solid = logo.querySelector('.logo-solid');
+      clearDust(logo, { keepHidden: true });
+      if (!solid) return;
+      solid.style.visibility = 'visible';
+      solid.style.opacity = '0';
+      solid.style.setProperty('--dust-edge', '0%');
+      const anim = solid.animate(
+        [
+          {
+            opacity: 0,
+            ['--dust-edge']: '0%',
+            filter: 'grayscale(0.4) blur(1.5px)',
+          },
+          {
+            opacity: 1,
+            ['--dust-edge']: '100%',
+            filter: 'grayscale(0) blur(0)',
+          },
+        ],
+        { duration: 520, easing: 'ease', fill: 'forwards' }
+      );
+      anim.finished.then(() => {
+        if (logo.classList.contains('is-dusting')) return;
+        solid.style.filter = '';
+        solid.style.opacity = '1';
+        solid.style.visibility = 'visible';
+        solid.style.setProperty('--dust-edge', '100%');
+        anim.cancel();
+      }).catch(() => {});
+    }
+
+    function playLogoEntrance(logo) {
+      logo.classList.remove('is-entering');
+      void logo.offsetWidth;
+      logo.classList.add('is-entering');
+      window.setTimeout(() => logo.classList.remove('is-entering'), 600);
+    }
+
+    document.querySelectorAll('[data-replay]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.card');
+        const logo = card.querySelector('.logo');
+        clearDust(logo);
+        playLogoEntrance(logo);
+        if (logo.classList.contains('anim-c')) bounceLogoLetters(logo, 120);
+      });
+    });
+
+    document.querySelectorAll('.logo').forEach((el) => {
+      el.addEventListener('click', (e) => e.preventDefault());
+    });
+
+    document.querySelectorAll('.anim-c').forEach((logo) => {
+      bounceLogoLetters(logo, 120);
+      logo.addEventListener('mouseenter', () => bounceLogoLetters(logo, 0));
+    });
+
+    document.querySelectorAll('.anim-d').forEach((logo) => {
+      window.setTimeout(() => logo.classList.remove('is-entering'), 600);
+      logo.addEventListener('mouseenter', () => dustDissolve(logo));
+      logo.addEventListener('mouseleave', () => dustRestore(logo));
+    });
+  </script>
+</body>
+</html>
