@@ -41,6 +41,13 @@
   --color-badge-scheduled-bg: #747a86;
   --color-badge-scheduled-text: #ffffff;
   --color-badge-info-bg: #edf2ff;
+  --color-hero-badge-ox-bg: #126afb;
+  --color-hero-badge-choice-bg: #7656e8;
+  --color-hero-badge-vote-bg: #d92d6a;
+  --color-hero-badge-shopping-bg: #07825b;
+  --color-hero-badge-drops-bg: #ffd24d;
+  --color-hero-badge-light-text: #ffffff;
+  --color-hero-badge-dark-text: #352700;
   --color-thumb-placeholder: #0a0d0f;
   --color-toggle-track: #dce0e5;
   --color-toggle-thumb: #ffffff;
@@ -801,6 +808,53 @@ a { color: inherit; text-decoration: none; }
 
 .hero__tag:hover {
   opacity: 0.88;
+}
+
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 26px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  color: var(--color-hero-badge-light-text);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.hero__badge--ox {
+  background: var(--color-hero-badge-ox-bg);
+}
+
+.hero__badge--choice {
+  background: var(--color-hero-badge-choice-bg);
+}
+
+.hero__badge--vote {
+  background: var(--color-hero-badge-vote-bg);
+}
+
+.hero__badge--shopping {
+  background: var(--color-hero-badge-shopping-bg);
+}
+
+.hero__badge--drops {
+  background: var(--color-hero-badge-drops-bg);
+  color: var(--color-hero-badge-dark-text);
 }
 
 .hero__play-btn:hover,
@@ -2059,6 +2113,17 @@ a { color: inherit; text-decoration: none; }
     line-height: 1.15;
     min-height: 0;
     white-space: normal;
+  }
+
+  .hero__badges {
+    gap: 5px;
+  }
+
+  .hero__badge {
+    min-height: 24px;
+    padding: 3px 10px;
+    font-size: 10px;
+    line-height: 18px;
   }
 
   .hero__play-btn {
