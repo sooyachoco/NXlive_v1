@@ -780,6 +780,13 @@
       window.setTimeout(() => logo.classList.remove('is-entering'), 600);
     }
 
+    function settleTriangleDraw(logo) {
+      window.clearTimeout(logo._triangleSettleTimer);
+      logo._triangleSettleTimer = window.setTimeout(() => {
+        logo.classList.remove('is-playing');
+      }, 1100);
+    }
+
     document.querySelectorAll('[data-replay]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const card = btn.closest('.card');
@@ -790,6 +797,7 @@
         logo.classList.add('is-playing');
         playLogoEntrance(logo);
         if (logo.classList.contains('anim-c')) bounceLogoLetters(logo, 120);
+        if (logo.classList.contains('anim-j')) settleTriangleDraw(logo);
       });
     });
 
@@ -800,6 +808,10 @@
     document.querySelectorAll('.anim-c').forEach((logo) => {
       bounceLogoLetters(logo, 120);
       logo.addEventListener('mouseenter', () => bounceLogoLetters(logo, 0));
+    });
+
+    document.querySelectorAll('.anim-j').forEach((logo) => {
+      settleTriangleDraw(logo);
     });
 
     document.querySelectorAll('.anim-d').forEach((logo) => {
