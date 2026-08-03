@@ -7,7 +7,7 @@
   <title>NEXON LIVE</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=58">
+  <link rel="stylesheet" href="css/style.css?v=77">
 </head>
 <body>
   <!-- SVG Icon Sprite (UI icons only — thumbnails use <img>) -->
@@ -173,7 +173,7 @@
           </video>
           <div class="hero__gradient"></div>
           <div class="hero__live-top">
-            <div class="badge-live badge-live--hero" aria-label="LIVE, 98,898,989명 시청">
+            <div class="badge-live" aria-label="LIVE, 98,898,989명 시청">
               <svg class="badge-live__separator" viewBox="0 0 8 18" fill="none" aria-hidden="true">
                 <path opacity="0.4" d="M0 0H8V18H0V0Z" fill="#000"/>
               </svg>
@@ -221,6 +221,7 @@
             <article class="hero-roll__slide hero-roll__slide--scheduled">
           <img class="hero-scheduled__bg" src="assets/thumbnail-fc-online.jpg" alt="FC 온라인 시즌 업데이트 라이브 예정">
           <div class="hero-scheduled__gradient" aria-hidden="true"></div>
+          <span class="hero-scheduled__schedule-badge">오늘 19:00 방송 예정</span>
           <span class="live-card__countdown hero-scheduled__status" hidden aria-hidden="true">예정</span>
           <div class="hero__content">
             <div class="hero__game">
@@ -229,10 +230,6 @@
             </div>
             <div class="hero__overlay hero-scheduled__overlay">
               <h1 class="hero__title hero-scheduled__title">시즌 업데이트 라이브</h1>
-              <p class="hero-scheduled__schedule">
-                <svg class="icon icon--clock-sm" aria-hidden="true"><use href="#icon-clock"/></svg>
-                <span>오늘 <span>19:00</span> 시작 · <span data-countdown="2026-07-29T19:00:00">00:00:00 남음</span></span>
-              </p>
               <div class="hero-scheduled__tags">
                 <span class="hero-scheduled__tag">드롭스</span>
                 <span class="hero-scheduled__tag">실시간 투표</span>
@@ -248,6 +245,7 @@
             <article class="hero-roll__slide hero-roll__slide--scheduled">
           <img class="hero-scheduled__bg" src="assets/thumbnail-dungeon-fighter.jpg" alt="던전앤파이터 겨울 디렉터 라이브 예정">
           <div class="hero-scheduled__gradient" aria-hidden="true"></div>
+          <span class="hero-scheduled__schedule-badge">오늘 20:30 방송 예정</span>
           <span class="live-card__countdown hero-scheduled__status" hidden aria-hidden="true">예정</span>
           <div class="hero__content">
             <div class="hero__game">
@@ -256,10 +254,6 @@
             </div>
             <div class="hero__overlay hero-scheduled__overlay">
               <h1 class="hero__title hero-scheduled__title">겨울 디렉터 라이브</h1>
-              <p class="hero-scheduled__schedule">
-                <svg class="icon icon--clock-sm" aria-hidden="true"><use href="#icon-clock"/></svg>
-                <span>오늘 <span>20:30</span> 시작 · <span data-countdown="2026-07-29T20:30:00">00:00:00 남음</span></span>
-              </p>
               <div class="hero-scheduled__tags">
                 <span class="hero-scheduled__tag">OX 퀴즈</span>
                 <span class="hero-scheduled__tag">드롭스</span>
@@ -277,6 +271,7 @@
           <div class="hero-scheduled" id="heroScheduled" hidden>
             <img class="hero-scheduled__bg" src="assets/thumbnail-dungeon-fighter.jpg" alt="">
             <div class="hero-scheduled__gradient" aria-hidden="true"></div>
+            <span class="hero-scheduled__schedule-badge">오늘 <span id="heroScheduledTime">20:30</span> 방송 예정</span>
             <span class="live-card__countdown hero-scheduled__status" hidden aria-hidden="true">예정</span>
             <div class="hero__content">
               <div class="hero__game">
@@ -285,10 +280,6 @@
               </div>
               <div class="hero__overlay hero-scheduled__overlay">
                 <h1 class="hero__title hero-scheduled__title" id="heroScheduledTitle">겨울 디렉터 라이브</h1>
-                <p class="hero-scheduled__schedule">
-                  <svg class="icon icon--clock-sm" aria-hidden="true"><use href="#icon-clock"/></svg>
-                  <span>오늘 <span id="heroScheduledTime">20:30</span> 시작 · <span id="heroScheduledCountdown" data-countdown="2026-07-29T20:30:00">02:22:33 남음</span></span>
-                </p>
                 <div class="hero-scheduled__tags" id="heroScheduledTags">
                   <span class="hero-scheduled__tag">OX 퀴즈</span>
                   <span class="hero-scheduled__tag">드롭스</span>
@@ -610,6 +601,6 @@
     </div>
   </div>
 
-  <script src="js/main.js?v=28"></script>
+  <script src="js/main.js?v=31"></script>
 </body>
 </html>

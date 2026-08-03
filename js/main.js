@@ -426,12 +426,24 @@
 
   function bindMediaPreview(container, video, progressBar, activeClass) {
     let rafId = null;
+    let isPreviewing = false;
+    const progress = progressBar.parentElement;
+
+    if (progress) {
+      progress.hidden = true;
+      progress.setAttribute('aria-hidden', 'true');
+    }
 
     function setProgress(ratio) {
       progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
     }
 
     function tick() {
+      if (!isPreviewing) {
+        rafId = null;
+        return;
+      }
+
       if (video.duration && !video.paused) {
         setProgress(video.currentTime / video.duration);
       }
@@ -439,7 +451,12 @@
     }
 
     function startPreview() {
+      isPreviewing = true;
       container.classList.add(activeClass);
+      if (progress) {
+        progress.hidden = false;
+        progress.setAttribute('aria-hidden', 'false');
+      }
 
       if (rafId === null) {
         rafId = requestAnimationFrame(tick);
@@ -454,14 +471,20 @@
     }
 
     function stopPreview() {
+      isPreviewing = false;
       container.classList.remove(activeClass);
-      video.pause();
-      video.currentTime = 0;
-      setProgress(0);
 
       if (rafId !== null) {
         cancelAnimationFrame(rafId);
         rafId = null;
+      }
+
+      video.pause();
+      video.currentTime = 0;
+      setProgress(0);
+      if (progress) {
+        progress.hidden = true;
+        progress.setAttribute('aria-hidden', 'true');
       }
     }
 
@@ -488,6 +511,12 @@
       slide.addEventListener('mouseleave', () => {
         progress.setAttribute('aria-hidden', 'true');
       });
+      slide.addEventListener('focusin', () => {
+        progress.setAttribute('aria-hidden', 'false');
+      });
+      slide.addEventListener('focusout', (event) => {
+        if (!slide.contains(event.relatedTarget)) progress.setAttribute('aria-hidden', 'true');
+      });
     });
 
     document.querySelectorAll('.hero-state--empty').forEach((hero) => {
@@ -503,6 +532,12 @@
       });
       hero.addEventListener('mouseleave', () => {
         progress.setAttribute('aria-hidden', 'true');
+      });
+      hero.addEventListener('focusin', () => {
+        progress.setAttribute('aria-hidden', 'false');
+      });
+      hero.addEventListener('focusout', (event) => {
+        if (!hero.contains(event.relatedTarget)) progress.setAttribute('aria-hidden', 'true');
       });
     });
   }
@@ -1013,6 +1048,121 @@
     });
   }
 
+  /* ===== Channel Live Carousel ===== */
+  function initChannelLiveCarousel() {
+    document.querySelectorAll('[data-channel-live-carousel]').forEach((carousel) => {
+      const track = carousel.querySelector('.channel-live-carousel__track');
+      const slides = track ? [...track.children] : [];
+      const prevBtn = carousel.querySelector('[data-carousel-prev]');
+      const nextBtn = carousel.querySelector('[data-carousel-next]');
+      const dots = [...carousel.querySelectorAll('[data-carousel-dot]')];
+      const status = carousel.querySelector('[data-carousel-status]');
+      if (!track || slides.length < 2) return;
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const slideCount = slides.length;
+      let activeIndex = 0;
+      let timer = null;
+
+      function updateUi() {
+        slides.forEach((slide, index) => {
+          const relativePosition = (index - activeIndex + slideCount) % slideCount;
+          const active = index === activeIndex;
+          slide.classList.toggle('is-active', active);
+          slide.classList.toggle('is-next', relativePosition === 1);
+          slide.classList.toggle('is-prev', relativePosition === slideCount - 1);
+          slide.setAttribute('aria-hidden', String(!active));
+          slide.querySelectorAll('a, button').forEach((el) => {
+            if (active) el.removeAttribute('tabindex');
+            else el.setAttribute('tabindex', '-1');
+          });
+        });
+
+        dots.forEach((dot, index) => {
+          const active = index === activeIndex;
+          dot.classList.toggle('is-active', active);
+          if (active) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
+
+        if (status) {
+          const label = dots[activeIndex]?.getAttribute('aria-label') || '';
+          status.textContent = `${label}, ${activeIndex + 1} / ${slideCount}`;
+        }
+      }
+
+      function stop() {
+        if (timer) window.clearInterval(timer);
+        timer = null;
+      }
+
+      function start() {
+        stop();
+        if (reduceMotion || document.hidden) return;
+        timer = window.setInterval(() => move(1), 6000);
+      }
+
+      function move(step) {
+        carousel.dataset.orbitDirection = step > 0 ? 'clockwise' : 'counterclockwise';
+        activeIndex = (activeIndex + step + slideCount) % slideCount;
+        updateUi();
+      }
+
+      function goTo(index) {
+        if (index === activeIndex) return;
+        carousel.dataset.orbitDirection = 'clockwise';
+        activeIndex = index;
+        updateUi();
+        start();
+      }
+
+      slides.forEach((slide, index) => {
+        slide.addEventListener('click', (event) => {
+          if (index === activeIndex) return;
+          event.preventDefault();
+          goTo(index);
+        });
+      });
+
+      prevBtn?.addEventListener('click', () => {
+        move(-1);
+        start();
+      });
+      nextBtn?.addEventListener('click', () => {
+        move(1);
+        start();
+      });
+      dots.forEach((dot, index) => dot.addEventListener('click', () => goTo(index)));
+
+      carousel.addEventListener('mouseenter', stop);
+      carousel.addEventListener('mouseleave', start);
+      carousel.addEventListener('focusin', stop);
+      carousel.addEventListener('focusout', (event) => {
+        if (!carousel.contains(event.relatedTarget)) start();
+      });
+      carousel.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          move(-1);
+          start();
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          move(1);
+          start();
+        }
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else start();
+      });
+
+      updateUi();
+      carousel.classList.add('is-ready');
+      start();
+    });
+  }
+
   /* ===== Init ===== */
   function safeInit(name, fn) {
     try {
@@ -1028,6 +1178,7 @@
     safeInit('initTooltips', initTooltips);
     safeInit('initVodFilters', initVodFilters);
     safeInit('initCountdowns', initCountdowns);
+    safeInit('initChannelLiveCarousel', initChannelLiveCarousel);
     safeInit('initCardClicks', initCardClicks);
     safeInit('initHeroHover', initHeroHover);
     safeInit('initHeroRolls', initHeroRolls);
