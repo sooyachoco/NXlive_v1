@@ -283,15 +283,19 @@
     }
 
     .anim-j:hover .draw-mark path {
-      animation: j-triangle-redraw 0.62s ease-out;
+      animation: j-triangle-draw-hover 0.72s ease-out backwards;
     }
 
     .anim-j:hover .draw-mark path:nth-child(2) {
-      animation-delay: 0.08s;
+      animation-delay: 0.12s;
     }
 
     .anim-j:hover .draw-mark path:nth-child(3) {
-      animation-delay: 0.16s;
+      animation-delay: 0.24s;
+    }
+
+    .anim-j:hover .icon--logo-text {
+      animation: j-text-reveal-hover 0.4s ease 0.62s backwards;
     }
 
     @keyframes j-triangle-draw {
@@ -309,18 +313,30 @@
       }
     }
 
-    @keyframes j-triangle-redraw {
+    /* 등장과 동일한 동작을 호버 시 재시작하기 위한 별도 이름 */
+    @keyframes j-triangle-draw-hover {
       0% {
         stroke-dashoffset: 1;
-        fill-opacity: 0.25;
+        fill-opacity: 0;
       }
-      62% {
+      68% {
         stroke-dashoffset: 0;
-        fill-opacity: 0.4;
+        fill-opacity: 0;
       }
       100% {
         stroke-dashoffset: 0;
         fill-opacity: 1;
+      }
+    }
+
+    @keyframes j-text-reveal-hover {
+      from {
+        opacity: 0;
+        transform: translateX(-4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
       }
     }
 
