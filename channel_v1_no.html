@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -7,7 +7,7 @@
   <title>메이플스토리 - NEXON LIVE</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=93">
+  <link rel="stylesheet" href="css/style.css?v=95">
 </head>
 <body class="channel-empty-page">
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
@@ -160,7 +160,8 @@
           <section class="channel-header" aria-label="게임 채널 헤더">
             <img class="channel-header__bg" src="assets/channel-header-maplestory.jpg" alt="">
             <div class="channel-header__gradient" aria-hidden="true"></div>
-            <div class="channel-header__quick-menu" aria-label="공식 채널 바로가기">
+            <div class="channel-header__quick-menu" aria-label="채널 바로가기">
+              <a href="index_v1.html" class="channel-header__social channel-header__social--main" aria-label="메인으로 돌아가기" data-tooltip="메인으로 돌아가기" data-tooltip-placement="bottom"><img class="channel-header__social-icon channel-header__social-icon--mark" src="assets/icon-nxlive-mark.svg" alt=""></a>
               <a href="#" class="channel-header__social" aria-label="공식 홈페이지" data-tooltip="공식 홈페이지" data-tooltip-placement="bottom"><img class="channel-header__social-icon" src="assets/icon-social-home.svg" alt=""></a>
               <a href="#" class="channel-header__social" aria-label="공식 유튜브" data-tooltip="공식 유튜브" data-tooltip-placement="bottom"><img class="channel-header__social-icon" src="assets/icon-social-youtube.svg" alt=""></a>
               <a href="#" class="channel-header__social" aria-label="공식 트위터" data-tooltip="공식 트위터" data-tooltip-placement="bottom"><img class="channel-header__social-icon" src="assets/icon-social-x.svg" alt=""></a>
@@ -192,7 +193,7 @@
                     <path d="M6 5L22 23" stroke="#0450EB" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                 </span>
-                <p class="channel-live-empty__message">현재 라이브/예정중인 방송이 없습니다</p>
+                <p class="channel-live-empty__message">게시 중인 영상이 없습니다</p>
               </div>
               <div class="channel-live-carousel" aria-roledescription="캐러셀" aria-label="진행중 및 예정 라이브" hidden aria-hidden="true">
                 <div class="channel-live-carousel__viewport">
@@ -281,212 +282,6 @@
               </div>
             </section>
 
-            <section class="section">
-              <div class="section__header">
-                <h2 class="section__title">최근 다시보기</h2>
-              </div>
-              <div class="vod-grid" data-paginate data-page-rows="2">
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/vod-thumbnail-1.jpg" alt="">
-                    <span class="vod-card__duration">42:18</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">프로게이머와 함께하는 랭킹 매치</h3>
-                    <p class="vod-card__meta">FC 온라인 · 어제 · 조회 23만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/channel-header-maplestory.jpg" alt="">
-                    <span class="vod-card__duration">42:18</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">여름 이벤트 소개 라이브</h3>
-                    <p class="vod-card__meta">메이플스토리 · 2일 전 · 조회 19만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/media-background-blur.jpg" alt="">
-                    <span class="vod-card__duration">42:18</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">신규 캐릭터 스포일러</h3>
-                    <p class="vod-card__meta">블루 아카이브 · 3일 전 · 조회 14만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/live-thumbnail-2.jpg" alt="">
-                    <span class="vod-card__duration">42:18</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">개발팀 Q&amp;A 하이라이트</h3>
-                    <p class="vod-card__meta">던전앤파이터 · 4일 전 · 조회 11만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/live-thumbnail-4.jpg" alt="">
-                    <span class="vod-card__duration">42:18</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">시즌 트레일러 공개</h3>
-                    <p class="vod-card__meta">카트라이더 러쉬 · 5일 전 · 조회 9.8만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/live-thumbnail-1.jpg" alt="">
-                    <span class="vod-card__duration">42:18</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">25주년 감사 방송 다시보기</h3>
-                    <p class="vod-card__meta">바람의나라 · 6일 전 · 조회 7.2만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap vod-card__thumb-wrap--portrait">
-                    <img class="vod-card__blur-bg" src="assets/live-thumbnail-3.jpg" alt="">
-                    <div class="vod-card__shade"></div>
-                    <img class="vod-card__portrait" src="assets/live-thumbnail-3.jpg" alt="">
-                    <span class="vod-card__duration">42:18</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">여름 방학 특별 이벤트</h3>
-                    <p class="vod-card__meta">메이플M · 1주 전 · 조회 5.4만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/live-thumbnail-5.jpg" alt="">
-                    <span class="vod-card__duration">42:18</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">V4 신규 던전 소개</h3>
-                    <p class="vod-card__meta">V4 · 1주 전 · 조회 4.1만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/live-thumbnail-2.jpg" alt="">
-                    <span class="vod-card__duration">18:42</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">마비노기 클래식 서버 오픈 기념 방송</h3>
-                    <p class="vod-card__meta">마비노기 · 1주 전 · 조회 3.8만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/vod-thumbnail-1.jpg" alt="">
-                    <span class="vod-card__duration">24:05</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">마비노기 모바일 신규 던전 공략</h3>
-                    <p class="vod-card__meta">마비노기 모바일 · 1주 전 · 조회 3.2만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/thumbnail-fc-online.jpg" alt="">
-                    <span class="vod-card__duration">55:10</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">FC 모바일 챔피언스리그 결승</h3>
-                    <p class="vod-card__meta">FC 모바일 · 1주 전 · 조회 5.1만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/thumbnail-maplestory.jpg" alt="">
-                    <span class="vod-card__duration">31:27</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">메이플스토리 보스 레이드 공략</h3>
-                    <p class="vod-card__meta">메이플스토리 · 1주 전 · 조회 8.7만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/thumbnail-dungeon-fighter.jpg" alt="">
-                    <span class="vod-card__duration">40:33</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">던전앤파이터 신규 직업 트레일러</h3>
-                    <p class="vod-card__meta">던전앤파이터 · 2주 전 · 조회 6.4만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/vod-thumbnail-2.jpg" alt="">
-                    <span class="vod-card__duration">27:52</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">FC 온라인 유저 이벤트 하이라이트</h3>
-                    <p class="vod-card__meta">FC 온라인 · 2주 전 · 조회 4.9만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/media-background-blur.jpg" alt="">
-                    <span class="vod-card__duration">33:14</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">블루 아카이브 신규 캐릭터 PV</h3>
-                    <p class="vod-card__meta">블루 아카이브 · 2주 전 · 조회 7.5만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/live-thumbnail-4.jpg" alt="">
-                    <span class="vod-card__duration">21:09</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">카트라이더 러쉬플러스 챔피언십</h3>
-                    <p class="vod-card__meta">카트라이더 러쉬 · 3주 전 · 조회 5.6만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/live-thumbnail-1.jpg" alt="">
-                    <span class="vod-card__duration">47:36</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">바람의나라 클래식 25주년 스페셜</h3>
-                    <p class="vod-card__meta">바람의나라 · 3주 전 · 조회 4.2만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap vod-card__thumb-wrap--portrait">
-                    <img class="vod-card__blur-bg" src="assets/live-thumbnail-3.jpg" alt="">
-                    <div class="vod-card__shade"></div>
-                    <img class="vod-card__portrait" src="assets/live-thumbnail-3.jpg" alt="">
-                    <span class="vod-card__duration">15:48</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">메이플M 여름 업데이트 프리뷰</h3>
-                    <p class="vod-card__meta">메이플M · 3주 전 · 조회 3.9만회</p>
-                  </div>
-                </article>
-                <article class="vod-card">
-                  <div class="vod-card__thumb-wrap">
-                    <img class="vod-card__thumb" src="assets/live-thumbnail-5.jpg" alt="">
-                    <span class="vod-card__duration">36:21</span>
-                  </div>
-                  <div class="vod-card__body">
-                    <h3 class="vod-card__title">V4 시즌 4 신규 콘텐츠 소개</h3>
-                    <p class="vod-card__meta">V4 · 4주 전 · 조회 2.8만회</p>
-                  </div>
-                </article>
-
-              </div>
-              <div class="vod-load-more" data-load-more-wrap hidden>
-                <button type="button" class="vod-load-more__btn" data-load-more>더보기</button>
-              </div>
-
-            </section>
           </div>
         </div>
       </main>
