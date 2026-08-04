@@ -1,4 +1,4 @@
-/* ===== Design Tokens ===== */
+﻿/* ===== Design Tokens ===== */
 :root {
   --color-bg: #fafafc;
   --color-surface: #ffffff;
@@ -4534,6 +4534,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .channel-live-empty {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -4541,13 +4542,25 @@ a { color: inherit; text-decoration: none; }
   gap: 20px;
   width: 100%;
   height: 468px;
+  overflow: hidden;
   border: 1px solid #e8ebf2;
   border-radius: 16px;
   background: var(--color-surface-raised);
   text-align: center;
 }
 
+.channel-live-empty__waves {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  pointer-events: none;
+}
 .channel-live-empty__icon {
+  position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
   width: 72px;
@@ -4559,13 +4572,16 @@ a { color: inherit; text-decoration: none; }
   background: var(--color-surface-raised);
 }
 
-.channel-live-empty__icon img {
+.channel-live-empty__icon img,
+.channel-live-empty__icon > svg {
   display: block;
   width: 28px;
   height: 28px;
 }
 
 .channel-live-empty__message {
+  position: relative;
+  z-index: 1;
   margin: 0;
   color: #a1a7b5;
   font-size: 20px;
@@ -4645,3 +4661,50 @@ a { color: inherit; text-decoration: none; }
     grid-template-columns: 1fr;
   }
 }
+/* Empty state — cinematic ridge mesh */
+.channel-live-empty {
+  border-color: #dbe6ea;
+  background: #f7fafb;
+  box-shadow: inset 0 0 90px rgba(91, 142, 157, 0.08);
+}
+
+.channel-live-empty__waves {
+  opacity: 1;
+}
+
+.channel-live-empty__icon {
+  border-color: rgba(103, 139, 150, 0.22);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 8px 30px rgba(52, 89, 101, 0.08);
+}
+
+.channel-live-empty__icon svg path {
+  stroke: #587984;
+}
+
+.channel-live-empty__message {
+  color: rgba(55, 78, 86, 0.82);
+  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.96);
+}
+
+[data-theme="dark"] .channel-live-empty {
+  border-color: #152229;
+  background: #020508;
+  box-shadow: inset 0 0 90px rgba(30, 99, 120, 0.1);
+}
+
+[data-theme="dark"] .channel-live-empty__icon {
+  border-color: rgba(211, 244, 252, 0.25);
+  background: rgba(3, 9, 13, 0.84);
+  box-shadow: 0 0 30px rgba(116, 220, 245, 0.07);
+}
+
+[data-theme="dark"] .channel-live-empty__icon svg path {
+  stroke: #d7f7ff;
+}
+
+[data-theme="dark"] .channel-live-empty__message {
+  color: rgba(230, 247, 251, 0.74);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.96);
+}
+

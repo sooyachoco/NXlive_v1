@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   'use strict';
 
   const THEME_KEY = 'nxlive-theme';
@@ -1163,6 +1163,451 @@
     });
   }
 
+  /* ===== Empty-state cyan wire mesh ===== */
+  function initEmptyStateWaves() {
+    const canvases = [...document.querySelectorAll('[data-empty-waves]')];
+    if (!canvases.length) return;
+
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    canvases.forEach((canvas) => {
+      const context = canvas.getContext('2d');
+      const host = canvas.parentElement;
+      if (!context || !host) return;
+
+      let width = 1;
+      let height = 1;
+      let pixelRatio = 1;
+      let frameId = 0;
+      let lastFrameTime = 0;
+
+      const meshLayers = [
+        { horizon: 0.25, depth: 0.55, rows: 24, columns: 78, amplitude: 0.075, frequency: 4.2, speed: 0.15, phase: 2.4, alpha: 0.18, xShift: -0.08 },
+        { horizon: 0.31, depth: 0.67, rows: 31, columns: 94, amplitude: 0.13, frequency: 5.1, speed: -0.11, phase: 0.6, alpha: 0.56, xShift: 0.04 },
+      ];
+
+      const glints = Array.from({ length: 36 }, (_, index) => ({
+        x: ((index * 41 + 13) % 103) / 103,
+        y: 0.3 + (((index * 59 + 5) % 64) / 100),
+        radius: 0.45 + ((index * 11) % 10) / 12,
+        phase: index * 0.73,
+        alpha: 0.035 + ((index * 7) % 9) * 0.006,
+      }));
+
+      function resize() {
+        const bounds = host.getBoundingClientRect();
+        width = Math.max(1, Math.round(bounds.width));
+        height = Math.max(1, Math.round(bounds.height));
+        pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+      }
+
+      function meshPoint(layer, column, row, time) {
+        const u = column / (layer.columns - 1);
+        const z = row / (layer.rows - 1);
+        const worldX = (u - 0.5) * 2.25;
+        const perspective = 0.5 + z * 0.68;
+        const lateralFlow = time * layer.speed;
+        const broadWave = Math.sin(worldX * layer.frequency + lateralFlow + layer.phase + z * 2.1);
+        const crossingWave = Math.cos(worldX * 2.15 - z * 5.2 - lateralFlow * 0.62 + layer.phase) * 0.38;
+        const crest = Math.sin(worldX * 7.4 + z * 3.7 + lateralFlow * 0.35) * 0.12;
+        const elevation = (broadWave * 0.62 + crossingWave + crest) * layer.amplitude;
+        const drift = Math.sin(time * 0.055 + layer.phase + z * 1.8) * width * 0.018;
+
+        return {
+          x: width * 0.5 + (worldX + layer.xShift) * width * 0.5 * perspective + drift,
+          y: height * layer.horizon
+            + Math.pow(z, 1.34) * height * layer.depth
+            + elevation * height * (0.24 + z * 0.95),
+          z,
+        };
+      }
+
+      function drawMesh(layer, time) {
+        const points = Array.from({ length: layer.rows }, () => Array(layer.columns));
+        for (let row = 0; row < layer.rows; row += 1) {
+          for (let column = 0; column < layer.columns; column += 1) {
+            points[row][column] = meshPoint(layer, column, row, time);
+          }
+        }
+
+        context.save();
+        context.strokeStyle = '#57dcff';
+        context.fillStyle = '#8cecff';
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+
+        for (let row = 0; row < layer.rows; row += 1) {
+          const z = row / (layer.rows - 1);
+          context.beginPath();
+          points[row].forEach((point, index) => {
+            if (index === 0) context.moveTo(point.x, point.y);
+            else context.lineTo(point.x, point.y);
+          });
+          context.globalAlpha = layer.alpha * (0.14 + z * 0.68);
+          context.lineWidth = 0.35 + z * 0.5;
+          context.stroke();
+        }
+
+        for (let column = 0; column < layer.columns; column += 2) {
+          context.beginPath();
+          for (let row = 0; row < layer.rows; row += 1) {
+            const point = points[row][column];
+            if (row === 0) context.moveTo(point.x, point.y);
+            else context.lineTo(point.x, point.y);
+          }
+          context.globalAlpha = layer.alpha * 0.24;
+          context.lineWidth = 0.35;
+          context.stroke();
+        }
+
+        for (let row = 0; row < layer.rows; row += 1) {
+          const z = row / (layer.rows - 1);
+          const radius = 0.34 + z * 0.54;
+          context.beginPath();
+          for (let column = 0; column < layer.columns; column += 1) {
+            const point = points[row][column];
+            context.moveTo(point.x + radius, point.y);
+            context.arc(point.x, point.y, radius, 0, Math.PI * 2);
+          }
+          context.globalAlpha = layer.alpha * (0.25 + z * 0.78);
+          context.fill();
+        }
+
+        context.restore();
+      }
+
+      function drawGlints(time) {
+        context.save();
+        context.fillStyle = '#8eefff';
+        glints.forEach((glint) => {
+          const x = ((glint.x + time * 0.0016) % 1) * width;
+          const y = (glint.y + Math.sin(time * 0.12 + glint.phase) * 0.012) * height;
+          context.beginPath();
+          context.arc(x, y, glint.radius, 0, Math.PI * 2);
+          context.globalAlpha = glint.alpha;
+          context.fill();
+        });
+        context.restore();
+      }
+
+      function drawBackground() {
+        const vertical = context.createLinearGradient(0, 0, 0, height);
+        vertical.addColorStop(0, '#00111f');
+        vertical.addColorStop(0.52, '#001726');
+        vertical.addColorStop(1, '#00101d');
+        context.fillStyle = vertical;
+        context.fillRect(0, 0, width, height);
+
+        const glow = context.createRadialGradient(width * 0.52, height * 0.52, 0, width * 0.52, height * 0.52, width * 0.55);
+        glow.addColorStop(0, 'rgba(18, 112, 145, 0.15)');
+        glow.addColorStop(0.48, 'rgba(5, 65, 91, 0.08)');
+        glow.addColorStop(1, 'rgba(0, 17, 31, 0)');
+        context.fillStyle = glow;
+        context.fillRect(0, 0, width, height);
+      }
+
+      function softenReadingZone() {
+        const mask = context.createRadialGradient(width * 0.5, height * 0.52, 0, width * 0.5, height * 0.52, Math.min(width * 0.2, height * 0.32));
+        mask.addColorStop(0, 'rgba(0, 17, 31, 0.86)');
+        mask.addColorStop(0.55, 'rgba(0, 17, 31, 0.4)');
+        mask.addColorStop(1, 'rgba(0, 17, 31, 0)');
+        context.fillStyle = mask;
+        context.fillRect(0, 0, width, height);
+      }
+
+      function render(timestamp = 0) {
+        if (!motionPreference.matches && timestamp - lastFrameTime < 32) {
+          frameId = window.requestAnimationFrame(render);
+          return;
+        }
+        lastFrameTime = timestamp;
+        const time = timestamp / 1000;
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        context.clearRect(0, 0, width, height);
+        context.globalAlpha = 1;
+        drawBackground();
+        meshLayers.forEach((layer) => drawMesh(layer, time));
+        drawGlints(time);
+        softenReadingZone();
+        context.globalAlpha = 1;
+
+        if (!motionPreference.matches && !document.hidden) {
+          frameId = window.requestAnimationFrame(render);
+        }
+      }
+
+      function restart() {
+        window.cancelAnimationFrame(frameId);
+        frameId = 0;
+        lastFrameTime = 0;
+        render(performance.now());
+      }
+
+      const resizeObserver = new ResizeObserver(() => {
+        resize();
+        restart();
+      });
+      resizeObserver.observe(host);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          window.cancelAnimationFrame(frameId);
+          frameId = 0;
+        } else {
+          restart();
+        }
+      });
+      motionPreference.addEventListener?.('change', restart);
+
+      resize();
+      restart();
+    });
+  }
+  /* ===== Empty-state cinematic ridge mesh ===== */
+  function initEmptyStateRidgeMesh() {
+    const canvases = [...document.querySelectorAll('[data-empty-waves]')];
+    if (!canvases.length) return;
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    canvases.forEach((canvas) => {
+      const context = canvas.getContext('2d');
+      const host = canvas.parentElement;
+      if (!context || !host) return;
+
+      let width = 1;
+      let height = 1;
+      let pixelRatio = 1;
+      let frameId = 0;
+      let lastFrameTime = 0;
+      const palettes = {
+        light: {
+          background: '#f7fafb',
+          glowInner: 'rgba(104, 159, 174, 0.12)',
+          glowMiddle: 'rgba(158, 194, 204, 0.065)',
+          line: '#708f99',
+          node: '#557681',
+          dust: '#6f929d',
+          maskInner: 'rgba(247, 250, 251, 0.94)',
+          maskMiddle: 'rgba(247, 250, 251, 0.62)',
+          maskOuter: 'rgba(247, 250, 251, 0)',
+          opacity: 0.72,
+        },
+        dark: {
+          background: '#020508',
+          glowInner: 'rgba(47, 130, 154, 0.095)',
+          glowMiddle: 'rgba(13, 58, 75, 0.045)',
+          line: '#dff9ff',
+          node: '#ffffff',
+          dust: '#e9fbff',
+          maskInner: 'rgba(2, 5, 8, 0.92)',
+          maskMiddle: 'rgba(2, 5, 8, 0.58)',
+          maskOuter: 'rgba(2, 5, 8, 0)',
+          opacity: 1,
+        },
+      };
+
+      function getPalette() {
+        return document.documentElement.getAttribute('data-theme') === 'dark'
+          ? palettes.dark
+          : palettes.light;
+      }
+
+      const layers = [
+        { horizon: 0.34, depth: 0.34, rows: 16, columns: 46, amplitude: 0.105, alpha: 0.16, phase: 2.1, speed: -0.045, spread: 1.24 },
+        { horizon: 0.31, depth: 0.54, rows: 23, columns: 60, amplitude: 0.165, alpha: 0.42, phase: 0.45, speed: 0.065, spread: 1.18 },
+        { horizon: 0.39, depth: 0.55, rows: 29, columns: 70, amplitude: 0.205, alpha: 0.64, phase: 4.3, speed: -0.052, spread: 1.12 },
+      ];
+
+      const dust = Array.from({ length: 52 }, (_, index) => ({
+        x: ((index * 47 + 17) % 113) / 113,
+        y: 0.27 + (((index * 71 + 11) % 61) / 100),
+        radius: 0.35 + ((index * 13) % 11) / 12,
+        phase: index * 0.91,
+        speed: 0.001 + ((index * 7) % 9) * 0.00016,
+        alpha: 0.025 + ((index * 5) % 10) * 0.006,
+      }));
+
+      function resize() {
+        const bounds = host.getBoundingClientRect();
+        width = Math.max(1, Math.round(bounds.width));
+        height = Math.max(1, Math.round(bounds.height));
+        pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+      }
+
+      function gaussian(value, center, spread) {
+        const delta = (value - center) / spread;
+        return Math.exp(-delta * delta);
+      }
+
+      function pointAt(layer, column, row, time) {
+        const u = column / (layer.columns - 1);
+        const z = row / (layer.rows - 1);
+        const worldX = (u - 0.5) * 2.55;
+        const flow = time * layer.speed;
+        const movingPeak = -0.58 + Math.sin(time * 0.083 + layer.phase) * 0.34;
+        const counterPeak = 0.58 + Math.cos(time * 0.061 + layer.phase) * 0.26;
+        const tallRidge = gaussian(worldX, movingPeak, 0.34 + z * 0.12) * (0.84 + Math.sin(z * 5.4 + time * 0.21) * 0.1);
+        const sideRidge = gaussian(worldX, counterPeak, 0.25 + z * 0.18) * 0.63;
+        const rolling = Math.sin((worldX + flow) * 3.25 + z * 2.6 + layer.phase) * 0.27;
+        const crossing = Math.cos(worldX * 6.15 - z * 5.8 - time * 0.14 + layer.phase) * 0.12;
+        const breathing = Math.sin(time * 0.18 + z * 3.3 + layer.phase) * 0.08;
+        const elevation = (tallRidge + sideRidge + rolling + crossing + breathing - 0.62) * layer.amplitude;
+        const perspective = 0.38 + Math.pow(z, 0.82) * 0.78;
+        const skew = Math.sin(z * 2.45 + time * 0.045 + layer.phase) * width * 0.035;
+        const irregularX = Math.sin(column * 1.73 + row * 0.61 + layer.phase) * (0.7 + z * 1.25);
+        const irregularY = Math.cos(column * 0.47 + row * 1.29 + layer.phase) * (0.45 + z * 0.8);
+        return {
+          x: width * 0.5 + worldX * width * 0.5 * layer.spread * perspective + skew + irregularX,
+          y: height * layer.horizon + Math.pow(z, 1.42) * height * layer.depth - elevation * height * (0.7 + z * 0.55) + irregularY,
+          z,
+          energy: Math.max(0, tallRidge * 0.75 + sideRidge * 0.45 + rolling * 0.18),
+        };
+      }
+
+      function strokeEdge(a, b, alpha, lineWidth) {
+        context.beginPath();
+        context.moveTo(a.x, a.y);
+        context.lineTo(b.x, b.y);
+        context.globalAlpha = alpha;
+        context.lineWidth = lineWidth;
+        context.stroke();
+      }
+
+      function drawLayer(layer, time, palette) {
+        const points = Array.from({ length: layer.rows }, () => Array(layer.columns));
+        for (let row = 0; row < layer.rows; row += 1) {
+          for (let column = 0; column < layer.columns; column += 1) {
+            points[row][column] = pointAt(layer, column, row, time);
+          }
+        }
+        context.save();
+        context.strokeStyle = palette.line;
+        context.fillStyle = palette.node;
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+
+        for (let row = 0; row < layer.rows; row += 1) {
+          const z = row / (layer.rows - 1);
+          for (let column = 0; column < layer.columns; column += 1) {
+            const point = points[row][column];
+            const depthAlpha = layer.alpha * (0.12 + z * 0.88);
+            const pulse = 0.72 + Math.sin(time * 0.72 + column * 0.43 + row * 0.29 + layer.phase) * 0.28;
+            const edgeAlpha = depthAlpha * (0.42 + point.energy * 0.58) * pulse * palette.opacity;
+            const edgeWidth = 0.28 + z * 0.54;
+            if (column < layer.columns - 1) strokeEdge(point, points[row][column + 1], edgeAlpha, edgeWidth);
+            if (row < layer.rows - 1) strokeEdge(point, points[row + 1][column], edgeAlpha * 0.64, edgeWidth * 0.8);
+            if (row < layer.rows - 1 && column < layer.columns - 1) {
+              const diagonal = (row + column) % 2 === 0 ? points[row + 1][column + 1] : points[row + 1][column];
+              const start = (row + column) % 2 === 0 ? point : points[row][column + 1];
+              strokeEdge(start, diagonal, edgeAlpha * 0.48, edgeWidth * 0.72);
+            }
+          }
+        }
+
+        for (let row = 0; row < layer.rows; row += 1) {
+          const z = row / (layer.rows - 1);
+          for (let column = 0; column < layer.columns; column += 1) {
+            const point = points[row][column];
+            const shimmer = Math.max(0, Math.sin(time * 1.35 + column * 0.77 - row * 0.36 + layer.phase));
+            const radius = 0.34 + z * 0.68 + shimmer * point.energy * 0.72;
+            context.beginPath();
+            context.arc(point.x, point.y, radius, 0, Math.PI * 2);
+            context.globalAlpha = layer.alpha * (0.18 + z * 0.66) * (0.56 + shimmer * 0.44);
+            context.fill();
+          }
+        }
+        context.restore();
+      }
+
+      function drawDust(time, palette) {
+        context.save();
+        context.fillStyle = palette.dust;
+        dust.forEach((particle) => {
+          const x = ((particle.x + time * particle.speed) % 1.08 - 0.04) * width;
+          const y = (particle.y + Math.sin(time * 0.19 + particle.phase) * 0.026) * height;
+          const pulse = 0.45 + Math.max(0, Math.sin(time * 0.76 + particle.phase)) * 0.55;
+          context.beginPath();
+          context.arc(x, y, particle.radius * pulse, 0, Math.PI * 2);
+          context.globalAlpha = particle.alpha * pulse * palette.opacity;
+          context.fill();
+        });
+        context.restore();
+      }
+
+      function drawBackground(time, palette) {
+        context.fillStyle = palette.background;
+        context.fillRect(0, 0, width, height);
+        const glowX = width * (0.5 + Math.sin(time * 0.055) * 0.16);
+        const glow = context.createRadialGradient(glowX, height * 0.58, 0, glowX, height * 0.58, width * 0.48);
+        glow.addColorStop(0, palette.glowInner);
+        glow.addColorStop(0.45, palette.glowMiddle);
+        glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        context.fillStyle = glow;
+        context.fillRect(0, 0, width, height);
+      }
+
+      function softenReadingZone(palette) {
+        const mask = context.createRadialGradient(width * 0.5, height * 0.49, 0, width * 0.5, height * 0.49, Math.min(width * 0.19, height * 0.29));
+        mask.addColorStop(0, palette.maskInner);
+        mask.addColorStop(0.52, palette.maskMiddle);
+        mask.addColorStop(1, palette.maskOuter);
+        context.fillStyle = mask;
+        context.fillRect(0, 0, width, height);
+      }
+
+      function render(timestamp = 0) {
+        if (!motionPreference.matches && timestamp - lastFrameTime < 32) {
+          frameId = window.requestAnimationFrame(render);
+          return;
+        }
+        lastFrameTime = timestamp;
+        const time = timestamp / 1000;
+        const palette = getPalette();
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        context.clearRect(0, 0, width, height);
+        context.globalAlpha = 1;
+        drawBackground(time, palette);
+        layers.forEach((layer) => drawLayer(layer, time, palette));
+        drawDust(time, palette);
+        softenReadingZone(palette);
+        context.globalAlpha = 1;
+        if (!motionPreference.matches && !document.hidden) frameId = window.requestAnimationFrame(render);
+      }
+
+      function restart() {
+        window.cancelAnimationFrame(frameId);
+        frameId = 0;
+        lastFrameTime = 0;
+        render(performance.now());
+      }
+
+      const resizeObserver = new ResizeObserver(() => {
+        resize();
+        restart();
+      });
+      resizeObserver.observe(host);
+       const themeObserver = new MutationObserver(restart);
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme'],
+      });
+     document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          window.cancelAnimationFrame(frameId);
+          frameId = 0;
+        } else {
+          restart();
+        }
+      });
+      motionPreference.addEventListener?.('change', restart);
+      resize();
+      restart();
+    });
+  }
   /* ===== Init ===== */
   function safeInit(name, fn) {
     try {
@@ -1179,6 +1624,7 @@
     safeInit('initVodFilters', initVodFilters);
     safeInit('initCountdowns', initCountdowns);
     safeInit('initChannelLiveCarousel', initChannelLiveCarousel);
+    safeInit('initEmptyStateRidgeMesh', initEmptyStateRidgeMesh);
     safeInit('initCardClicks', initCardClicks);
     safeInit('initHeroHover', initHeroHover);
     safeInit('initHeroRolls', initHeroRolls);
@@ -1195,3 +1641,5 @@
     document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
   });
 })();
+
+
