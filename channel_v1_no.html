@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <link rel="stylesheet" href="css/style.css?v=87">
 </head>
-<body>
+<body class="channel-empty-page">
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
     <defs>
       <linearGradient id="logo-grad-1" x1="4.4988" y1="5.14225" x2="13.8961" y2="10.4865" gradientUnits="userSpaceOnUse">
@@ -90,9 +90,9 @@
         </a>
       </div>
       <nav class="header__broadcast-switch" aria-label="방송 상태 미리보기">
-        <a href="channel_v1.html" class="header__broadcast-switch-btn is-active" aria-current="page">방송 3개</a>
+        <a href="channel_v1.html" class="header__broadcast-switch-btn">방송 3개</a>
         <a href="channel_v1_1.html" class="header__broadcast-switch-btn">방송 1개</a>
-        <a href="channel_v1_no.html" class="header__broadcast-switch-btn">방송없음</a>
+        <a href="channel_v1_no.html" class="header__broadcast-switch-btn is-active" aria-current="page">방송없음</a>
       </nav>
       <div class="header__actions">
         <button class="header__theme-btn" id="themeToggle" aria-label="테마 전환">🌙</button>
@@ -183,10 +183,13 @@
 
           <div class="sections sections--channel">
             <section class="section channel-live-section">
-              <div class="section__header">
-                <h2 class="section__title"></h2>
+              <div class="channel-live-empty" role="status">
+                <span class="channel-live-empty__icon" aria-hidden="true">
+                  <img src="assets/icon-video-off.svg" alt="">
+                </span>
+                <p class="channel-live-empty__message">현재 라이브/예정중인 방송이 없습니다</p>
               </div>
-              <div class="channel-live-carousel" data-channel-live-carousel aria-roledescription="캐러셀" aria-label="진행중 및 예정 라이브">
+              <div class="channel-live-carousel" aria-roledescription="캐러셀" aria-label="진행중 및 예정 라이브" hidden aria-hidden="true">
                 <div class="channel-live-carousel__viewport">
                   <div class="channel-live-carousel__track">
                     <article class="channel-live-carousel__slide" aria-label="1 / 3">
