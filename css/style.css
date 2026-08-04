@@ -2482,10 +2482,40 @@ a { color: inherit; text-decoration: none; }
 
 .channel-live-carousel__slide:not(.is-active) .channel-live-card__content,
 .channel-live-carousel__slide:not(.is-active) .channel-live-card__play,
-.channel-live-carousel__slide:not(.is-active) .channel-live-card__status-badge,
-.channel-live-carousel__slide:not(.is-active) .channel-live-card__viewer-badge,
-.channel-live-carousel__slide:not(.is-active) .channel-live-card__schedule {
+.channel-live-carousel__slide:not(.is-active) .channel-live-card__status-badge {
   opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.18s ease,
+    visibility 0s linear 0.18s;
+}
+
+.channel-live-carousel__slide.is-prev .channel-live-card__schedule,
+.channel-live-carousel__slide.is-next .channel-live-card__schedule,
+.channel-live-carousel__slide.is-prev .channel-live-card__viewer-badge,
+.channel-live-carousel__slide.is-next .channel-live-card__viewer-badge {
+  top: 12px;
+  left: 12px;
+  transform: scale(0.82);
+  transform-origin: top left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.18s ease,
+    visibility 0s linear 0.18s;
+}
+
+.channel-live-carousel__slide.is-prev:hover .channel-live-card__schedule,
+.channel-live-carousel__slide.is-next:hover .channel-live-card__schedule,
+.channel-live-carousel__slide.is-prev:hover .channel-live-card__viewer-badge,
+.channel-live-carousel__slide.is-next:hover .channel-live-card__viewer-badge {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.18s ease,
+    visibility 0s linear 0s;
 }
 
 .channel-live-card {
@@ -2529,7 +2559,7 @@ a { color: inherit; text-decoration: none; }
   height: 100%;
   object-fit: cover;
   image-rendering: auto;
-  transition: transform 0.45s ease;
+  transition: transform 0.22s ease;
 }
 
 .channel-live-card--scheduled .channel-live-card__media {
@@ -4304,7 +4334,7 @@ a { color: inherit; text-decoration: none; }
     left 0.72s cubic-bezier(0.22, 0.76, 0.24, 1),
     width 0.72s cubic-bezier(0.22, 0.76, 0.24, 1),
     height 0.72s cubic-bezier(0.22, 0.76, 0.24, 1),
-    opacity 0.42s ease;
+    opacity 0.22s ease;
 }
 
 .channel-live-carousel__slide.is-active {
@@ -4334,8 +4364,38 @@ a { color: inherit; text-decoration: none; }
   transform: none;
 }
 
+.channel-live-carousel__slide.is-prev,
+.channel-live-carousel__slide.is-next {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.channel-live-carousel__slide.is-prev:hover,
+.channel-live-carousel__slide.is-next:hover {
+  opacity: 0.96;
+}
+
+.channel-live-carousel__slide.is-prev:hover .channel-live-card__media,
+.channel-live-carousel__slide.is-next:hover .channel-live-card__media {
+  transform: scale(1.03);
+}
+
+.channel-live-carousel__slide.is-prev:hover .channel-live-card__overlay--dim,
+.channel-live-carousel__slide.is-next:hover .channel-live-card__overlay--dim {
+  opacity: 0.38;
+}
+
+.channel-live-carousel__slide.is-prev:hover .channel-live-card--carousel,
+.channel-live-carousel__slide.is-next:hover .channel-live-card--carousel {
+  border-color: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
 .channel-live-card--carousel {
   border-color: rgba(209, 209, 209, 0.7);
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
 .channel-live-card--scheduled .channel-live-card__media {
@@ -4354,6 +4414,7 @@ a { color: inherit; text-decoration: none; }
 
 .channel-live-card__overlay--dim {
   display: none;
+  transition: opacity 0.35s ease;
 }
 
 .channel-live-carousel__slide:not(.is-active) .channel-live-card__overlay--readability {
