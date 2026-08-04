@@ -1061,7 +1061,7 @@
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const slideCount = slides.length;
-      let activeIndex = 0;
+      let activeIndex = slideCount - 1;
       let timer = null;
 
       function updateUi() {

@@ -2370,7 +2370,7 @@ a { color: inherit; text-decoration: none; }
 
 .channel-live-carousel__viewport {
   width: 100%;
-  aspect-ratio: 900 / 429;
+  aspect-ratio: 900 / 479;
   overflow: visible;
   border-radius: 16px;
   background: transparent;
@@ -2402,7 +2402,7 @@ a { color: inherit; text-decoration: none; }
   transform: translate3d(0, -12%, -220px) scale(0.68);
   transform-origin: center center;
   backface-visibility: hidden;
-  filter: brightness(0.58) saturate(0.72);
+  filter: none;
   will-change: transform, opacity, filter;
   transition:
     transform 0.78s cubic-bezier(0.22, 0.76, 0.24, 1),
@@ -2457,7 +2457,7 @@ a { color: inherit; text-decoration: none; }
   color: #fff;
   text-decoration: none;
   isolation: isolate;
-  box-shadow: 0 1px 2px rgba(13, 20, 33, 0.08);
+  box-shadow: none;
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
@@ -2466,7 +2466,7 @@ a { color: inherit; text-decoration: none; }
   height: 100%;
   border: 1px solid rgba(255, 255, 255, 0.26);
   border-radius: 16px;
-  box-shadow: 0 18px 44px rgba(9, 13, 20, 0.28);
+  box-shadow: none;
 }
 
 .channel-live-card:not(.channel-live-card--carousel):hover {
@@ -2555,7 +2555,7 @@ a { color: inherit; text-decoration: none; }
 .channel-live-carousel__dots {
   position: absolute;
   top: auto;
-  bottom: 0;
+  bottom: 50px;
   left: 50%;
   z-index: 4;
   display: flex;
@@ -2565,6 +2565,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: 999px;
   background: rgba(12, 16, 22, 0.32);
   transform: translateX(-50%);
+  transform-origin: center;
   backdrop-filter: blur(8px);
 }
 
@@ -2803,7 +2804,7 @@ a { color: inherit; text-decoration: none; }
 
   .channel-live-carousel__dots {
     top: auto;
-    bottom: 0;
+    bottom: 50px;
   }
 }
 
@@ -4229,4 +4230,233 @@ a { color: inherit; text-decoration: none; }
 [data-theme="dark"] .sidebar__game-item:not(.sidebar__game-item--active):hover:visited {
   background-color: var(--color-lnb-active-bg) !important;
   color: var(--color-lnb-active-text) !important;
+}
+
+/* Featured carousel — Figma 210:793 */
+.channel-live-section {
+  max-width: 1238px;
+}
+
+.channel-live-carousel {
+  padding-bottom: 22px;
+}
+
+.channel-live-carousel__viewport {
+  aspect-ratio: 1238 / 548;
+  border-radius: 0;
+  perspective: none;
+}
+
+.channel-live-carousel__track {
+  transform-style: flat;
+}
+
+.channel-live-carousel__slide {
+  top: 4.38%;
+  left: 14.055%;
+  width: 71.89%;
+  height: 91.24%;
+  transform: none;
+  transform-origin: center;
+  filter: none;
+  transition:
+    top 0.72s cubic-bezier(0.22, 0.76, 0.24, 1),
+    left 0.72s cubic-bezier(0.22, 0.76, 0.24, 1),
+    width 0.72s cubic-bezier(0.22, 0.76, 0.24, 1),
+    height 0.72s cubic-bezier(0.22, 0.76, 0.24, 1),
+    opacity 0.42s ease;
+}
+
+.channel-live-carousel__slide.is-active {
+  top: 4.38%;
+  left: 14.055%;
+  width: 71.89%;
+  height: 91.24%;
+  opacity: 1;
+  transform: none;
+}
+
+.channel-live-carousel__slide.is-prev {
+  top: 20.44%;
+  left: 0;
+  width: 24.233%;
+  height: 60.22%;
+  opacity: 0.72;
+  transform: none;
+}
+
+.channel-live-carousel__slide.is-next {
+  top: 20.44%;
+  left: 75.767%;
+  width: 24.233%;
+  height: 60.22%;
+  opacity: 0.82;
+  transform: none;
+}
+
+.channel-live-card--carousel {
+  border-color: rgba(209, 209, 209, 0.7);
+}
+
+.channel-live-card--scheduled .channel-live-card__media {
+  filter: none;
+}
+
+.channel-live-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.channel-live-card__overlay--dim {
+  display: none;
+}
+
+.channel-live-carousel__slide:not(.is-active) .channel-live-card__overlay--readability {
+  display: none;
+}
+
+.channel-live-carousel__slide:not(.is-active) .channel-live-card__overlay--dim {
+  display: block;
+}
+
+.channel-live-card__schedule {
+  top: 23px;
+  left: 25px;
+  padding: 6px 10px;
+  background: #fff;
+  color: #0450eb;
+  font-size: 12px;
+  line-height: 18px;
+  backdrop-filter: none;
+}
+
+.channel-live-card__content {
+  right: auto;
+  bottom: 24px;
+  left: 25px;
+  width: min(500px, calc(100% - 50px));
+  gap: 10px;
+  padding: 0;
+}
+
+.channel-live-card__title {
+  width: 100%;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.35px;
+}
+
+.channel-live-card__tags {
+  gap: 8px;
+}
+
+.channel-live-card__tag {
+  min-height: 28px;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 16px;
+  backdrop-filter: none;
+}
+
+.channel-live-card__tag--choice,
+.channel-live-card__tag--ox {
+  background: #5c2bd1;
+}
+
+.channel-live-card__tag--reward {
+  background: #05a65c;
+}
+
+.channel-live-carousel__arrow {
+  display: none;
+}
+
+.channel-live-carousel__dots {
+  bottom: -12px;
+  width: 108px;
+  height: 20px;
+  gap: 8px;
+  padding: 3px 17px;
+  box-sizing: border-box;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.channel-live-carousel__dot {
+  width: 14px;
+  height: 14px;
+  background: #a1a7b5;
+}
+
+.channel-live-carousel__dot.is-active {
+  width: 30px;
+  background: #3d91ff;
+}
+
+@media (max-width: 900px) {
+  .channel-live-carousel {
+    padding-bottom: 30px;
+  }
+
+  .channel-live-carousel__viewport {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  .channel-live-carousel__slide,
+  .channel-live-carousel__slide.is-active {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .channel-live-carousel__slide.is-prev,
+  .channel-live-carousel__slide.is-next {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .channel-live-card__content {
+    bottom: 18px;
+    left: 18px;
+    width: calc(100% - 36px);
+    padding: 0;
+  }
+
+  .channel-live-carousel__dots {
+    bottom: -20px;
+  }
+}
+
+@media (max-width: 540px) {
+  .channel-live-carousel__viewport {
+    aspect-ratio: 4 / 3;
+  }
+
+  .channel-live-card__schedule {
+    top: 14px;
+    left: 14px;
+  }
+
+  .channel-live-card__content {
+    bottom: 14px;
+    left: 14px;
+    width: calc(100% - 28px);
+  }
+
+  .channel-live-card__title {
+    font-size: 18px;
+    line-height: 27px;
+  }
 }
