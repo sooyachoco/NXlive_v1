@@ -7,7 +7,7 @@
   <title>메이플스토리 - NEXON LIVE</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=96">
+  <link rel="stylesheet" href="css/style.css?v=121">
 </head>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
@@ -188,16 +188,20 @@
                 <h2 class="section__title"></h2>
               </div>
               <div class="channel-live-carousel channel-live-carousel--static is-ready" aria-label="현재 라이브">
-                <div class="channel-live-carousel__viewport">
-                  <div class="channel-live-carousel__track">
-                    <article class="channel-live-carousel__slide is-prev" aria-hidden="true">
-                      <span class="channel-live-card channel-live-card--carousel channel-live-card--scheduled" aria-hidden="true">
-                        <img class="channel-live-card__media" src="assets/carousel-preview-next.png" alt="">
-                        <img class="channel-live-card__overlay channel-live-card__overlay--readability" src="assets/carousel-overlay-readability.png" alt="" aria-hidden="true">
-                        <img class="channel-live-card__overlay channel-live-card__overlay--dim" src="assets/carousel-overlay-dim.png" alt="" aria-hidden="true">
-                      </span>
-                    </article>
-
+                <div class="channel-live-carousel__hero">
+                  <div class="channel-live-carousel__backdrop" aria-hidden="true">
+                    <div class="channel-live-empty__doodle">
+                      <div class="channel-live-empty__doodle-mask">
+                        <img class="channel-live-empty__doodle-layer channel-live-empty__doodle-layer--a" src="assets/empty-state-doodle.png" alt="">
+                      </div>
+                      <div class="channel-live-empty__doodle-mask">
+                        <img class="channel-live-empty__doodle-layer channel-live-empty__doodle-layer--b" src="assets/empty-state-doodle.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="channel-live-carousel__stage">
+                    <div class="channel-live-carousel__viewport">
+                      <div class="channel-live-carousel__track">
                     <article class="channel-live-carousel__slide is-active" aria-label="여름 업데이트 쇼케이스 라이브">
                       <a href="#" class="channel-live-card channel-live-card--carousel" aria-label="여름 업데이트 쇼케이스 라이브 시청">
                         <img class="channel-live-card__media" src="assets/carousel-preview-next.png" alt="">
@@ -231,14 +235,8 @@
                         </span>
                       </a>
                     </article>
-
-                    <article class="channel-live-carousel__slide is-next" aria-hidden="true">
-                      <span class="channel-live-card channel-live-card--carousel channel-live-card--scheduled" aria-hidden="true">
-                        <img class="channel-live-card__media" src="assets/carousel-preview-next.png" alt="">
-                        <img class="channel-live-card__overlay channel-live-card__overlay--readability" src="assets/carousel-overlay-readability.png" alt="" aria-hidden="true">
-                        <img class="channel-live-card__overlay channel-live-card__overlay--dim" src="assets/carousel-overlay-dim.png" alt="" aria-hidden="true">
-                      </span>
-                    </article>
+                  </div>
+                    </div>
                   </div>
                 </div>
               </div>

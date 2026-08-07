@@ -1059,18 +1059,20 @@
       const status = carousel.querySelector('[data-carousel-status]');
       if (!track || slides.length < 2) return;
 
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const slideCount = slides.length;
-      let activeIndex = slideCount - 1;
-      let timer = null;
+      let activeIndex = slides.findIndex((slide) => slide.querySelector('.badge-live, .badge-live__live'));
+      if (activeIndex < 0) activeIndex = 0;
 
       function updateUi() {
         slides.forEach((slide, index) => {
           const relativePosition = (index - activeIndex + slideCount) % slideCount;
-          const active = index === activeIndex;
-          slide.classList.toggle('is-active', active);
-          slide.classList.toggle('is-next', relativePosition === 1);
-          slide.classList.toggle('is-prev', relativePosition === slideCount - 1);
+          const active = relativePosition === 0;
+
+          slide.classList.remove('is-active', 'is-next', 'is-prev', 'is-queue-2');
+          if (active) slide.classList.add('is-active');
+          else if (relativePosition === 1) slide.classList.add('is-next');
+          else if (relativePosition === 2) slide.classList.add('is-queue-2');
+
           slide.setAttribute('aria-hidden', String(!active));
           slide.querySelectorAll('a, button').forEach((el) => {
             if (active) el.removeAttribute('tabindex');
@@ -1091,17 +1093,6 @@
         }
       }
 
-      function stop() {
-        if (timer) window.clearInterval(timer);
-        timer = null;
-      }
-
-      function start() {
-        stop();
-        if (reduceMotion || document.hidden) return;
-        timer = window.setInterval(() => move(1), 6000);
-      }
-
       function move(step) {
         carousel.dataset.orbitDirection = step > 0 ? 'clockwise' : 'counterclockwise';
         activeIndex = (activeIndex + step + slideCount) % slideCount;
@@ -1113,7 +1104,6 @@
         carousel.dataset.orbitDirection = 'clockwise';
         activeIndex = index;
         updateUi();
-        start();
       }
 
       slides.forEach((slide, index) => {
@@ -1124,42 +1114,22 @@
         });
       });
 
-      prevBtn?.addEventListener('click', () => {
-        move(-1);
-        start();
-      });
-      nextBtn?.addEventListener('click', () => {
-        move(1);
-        start();
-      });
+      prevBtn?.addEventListener('click', () => move(-1));
+      nextBtn?.addEventListener('click', () => move(1));
       dots.forEach((dot, index) => dot.addEventListener('click', () => goTo(index)));
 
-      carousel.addEventListener('mouseenter', stop);
-      carousel.addEventListener('mouseleave', start);
-      carousel.addEventListener('focusin', stop);
-      carousel.addEventListener('focusout', (event) => {
-        if (!carousel.contains(event.relatedTarget)) start();
-      });
       carousel.addEventListener('keydown', (event) => {
         if (event.key === 'ArrowLeft') {
           event.preventDefault();
           move(-1);
-          start();
         } else if (event.key === 'ArrowRight') {
           event.preventDefault();
           move(1);
-          start();
         }
-      });
-
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) stop();
-        else start();
       });
 
       updateUi();
       carousel.classList.add('is-ready');
-      start();
     });
   }
 
